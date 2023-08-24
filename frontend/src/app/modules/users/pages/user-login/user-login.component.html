@@ -77,16 +77,11 @@
             </mat-form-field>
         </div>
 
-        <!-- Button -->
-
-        <button
-            mat-flat-button
-            class="login-button"
-            [disabled]="loginForm.invalid"
-            (click)="handleLoginClick()"
-        >
-            Login
-        </button>
+        <!-- Submit button -->
+        <app-users-submit-btn
+            [disabledValue]="loginForm.invalid"
+            (buttonTypeEmitter)="handleButtonTypeEmit($event)"
+        ></app-users-submit-btn>
     </form>
 
     <!-- Not a user -->

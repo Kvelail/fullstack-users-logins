@@ -1,0 +1,9 @@
+<button
+    mat-flat-button
+    class="submit-button"
+    [ngClass]="{ 'add-button': buttonType === 'add user' }"
+    [disabled]="disabledValue"
+    (click)="handleClick()"
+>
+    {{ buttonType }}
+</button>

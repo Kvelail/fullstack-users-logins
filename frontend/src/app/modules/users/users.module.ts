@@ -23,6 +23,8 @@ import { UsersNavbarComponent } from './components/users-navbar/users-navbar.com
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { UsersFilterComponent } from './components/users-filter/users-filter.component';
 import { UsersPaginationComponent } from './components/users-pagination/users-pagination.component';
+import { UsersAddComponent } from './components/users-add/users-add.component';
+import { UsersSubmitBtnComponent } from './components/users-submit-btn/users-submit-btn.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +35,8 @@ import { UsersPaginationComponent } from './components/users-pagination/users-pa
         UsersListComponent,
         UsersFilterComponent,
         UsersPaginationComponent,
+        UsersAddComponent,
+        UsersSubmitBtnComponent,
     ],
     imports: [
         /* modules */

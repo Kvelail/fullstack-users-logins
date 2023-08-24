@@ -1,0 +1,24 @@
+@import '../../../../../styles/variables.scss';
+
+.submit-button {
+    outline: none;
+    border: none;
+    background: $color-turquoise !important;
+    color: $color-white !important;
+    font-size: 1.8rem;
+    letter-spacing: 0.1rem;
+    font-weight: 700;
+    padding: 2.5rem 0;
+    margin-top: 0.5rem;
+    width: 100%;
+    text-transform: capitalize;
+
+    &:disabled,
+    &[disabled] {
+        background-color: $color-grey-2 !important;
+    }
+
+    &.add-button {
+        margin-top: 1.5rem;
+    }
+}

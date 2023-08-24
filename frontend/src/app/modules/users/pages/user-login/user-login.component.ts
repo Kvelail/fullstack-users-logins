@@ -79,7 +79,20 @@ export class UserLoginComponent implements OnInit, OnDestroy {
 
     // login click
     public handleLoginClick(): void {
+        const loginForm = this.loginForm;
+
+        if (loginForm.invalid) {
+            return;
+        }
+
         this.router.navigate([RouteString.DASHBOARD_USERS]);
+    }
+
+    // handle button type emit
+    public handleButtonTypeEmit(type: string): void {
+        if (type === ConstantString.LOGIN) {
+            this.handleLoginClick();
+        }
     }
 
     // login click on enter key

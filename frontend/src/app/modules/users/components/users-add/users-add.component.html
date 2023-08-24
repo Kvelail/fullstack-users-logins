@@ -1,0 +1,66 @@
+<div class="add-users">
+    <!-- Header -->
+    <div class="add-users-header">
+        <p class="user-select-none">Add New User</p>
+    </div>
+
+    <!-- Form -->
+    <div class="add-users-form">
+        <form [formGroup]="addUserForm">
+            <!-- Username input -->
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input
+                    formControlName="username"
+                    matInput
+                    placeholder="Username"
+                    spellcheck="false"
+                    required
+                />
+            </mat-form-field>
+
+            <!-- Email input -->
+            <mat-form-field class="email-input">
+                <mat-label>Email</mat-label>
+
+                <input
+                    formControlName="email"
+                    matInput
+                    placeholder="email@example.com"
+                    required
+                    spellcheck="false"
+                />
+            </mat-form-field>
+
+            <!-- Password input -->
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+
+                <input
+                    formControlName="password"
+                    matInput
+                    [type]="hidePassword ? 'password' : 'text'"
+                />
+
+                <button
+                    (click)="switchHidePassword()"
+                    [attr.aria-pressed]="hidePassword"
+                    [attr.aria-label]="'Hide password'"
+                    mat-icon-button
+                    matSuffix
+                >
+                    <mat-icon>{{
+                        hidePassword ? 'visibility_off' : 'visibility'
+                    }}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <!-- Submit button -->
+            <app-users-submit-btn
+                [buttonType]="'add user'"
+                [disabledValue]="addUserForm.invalid"
+                (buttonTypeEmitter)="handleButtonTypeEmit($event)"
+            ></app-users-submit-btn>
+        </form>
+    </div>
+</div>

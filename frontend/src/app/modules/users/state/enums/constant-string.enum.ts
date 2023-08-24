@@ -3,4 +3,6 @@ export enum ConstantString {
     PASSWORD = 'password',
     REQUIRED = 'required',
     PATTERN = 'pattern',
+    LOGIN = 'login',
+    ADD = 'add user',
 }

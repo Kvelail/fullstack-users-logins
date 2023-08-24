@@ -1,0 +1,33 @@
+@import '../../../../../styles/variables.scss';
+
+.add-users {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    /* Header */
+    &-header {
+        display: flex;
+        justify-content: end;
+        background: $color-white;
+        padding: 1.6rem 2rem;
+        border-radius: 0.5rem;
+
+        p {
+            color: $color-turquoise;
+            font-weight: 500;
+            font-size: 2.1rem;
+        }
+    }
+
+    /* Form */
+    &-form {
+        margin-top: 1rem;
+        font-size: 1.6rem;
+
+        mat-form-field {
+            width: 100%;
+            margin-bottom: -1rem;
+        }
+    }
+}

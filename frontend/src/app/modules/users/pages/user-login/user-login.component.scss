@@ -42,24 +42,6 @@
                 margin-bottom: 0.5rem;
             }
         }
-
-        /* Login btn */
-        .login-button {
-            outline: none;
-            border: none;
-            background: $color-turquoise;
-            font-size: 1.8rem;
-            letter-spacing: 0.1rem;
-            font-weight: 700;
-            color: $color-white;
-            padding: 2.5rem 0;
-            margin-top: 0.5rem;
-
-            &:disabled,
-            &[disabled] {
-                background-color: $color-grey-2;
-            }
-        }
     }
 
     /* Signup */
