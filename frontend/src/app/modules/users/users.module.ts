@@ -13,11 +13,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+
 // components
 import { UserLoginComponent } from './pages/user-login/user-login.component';
 import { UsersComponent } from './pages/users/users.component';
 import { UsersLoginsComponent } from './pages/users-logins/users-logins.component';
 import { UsersNavbarComponent } from './components/users-navbar/users-navbar.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 
 @NgModule({
     declarations: [
@@ -25,6 +29,7 @@ import { UsersNavbarComponent } from './components/users-navbar/users-navbar.com
         UsersComponent,
         UsersLoginsComponent,
         UsersNavbarComponent,
+        UsersListComponent,
     ],
     imports: [
         /* modules */
@@ -41,6 +46,8 @@ import { UsersNavbarComponent } from './components/users-navbar/users-navbar.com
         MatIconModule,
         MatButtonModule,
         MatToolbarModule,
+        MatTableModule,
+        MatSortModule,
     ],
     exports: [UsersNavbarComponent],
 })

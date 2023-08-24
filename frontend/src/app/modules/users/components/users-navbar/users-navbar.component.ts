@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+// static
 import { NAVBAR_MENU_ITEMS } from '../../state/utils/static';
 
 // models

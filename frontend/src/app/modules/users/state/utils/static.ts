@@ -14,3 +14,10 @@ export const NAVBAR_MENU_ITEMS: NavbarLink[] = [
         route: '/',
     },
 ];
+
+export const TABLE_HEADER_ITEMS: string[] = [
+    'position',
+    'username',
+    'email',
+    'createdAt',
+];

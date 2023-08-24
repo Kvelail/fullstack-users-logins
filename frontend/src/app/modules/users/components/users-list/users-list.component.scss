@@ -1,0 +1,7 @@
+@import '../../../../../styles/variables.scss';
+
+.users-list {
+    .mat-mdc-row:nth-child(odd) {
+        background-color: $color-turquoise-opacity-2;
+    }
+}

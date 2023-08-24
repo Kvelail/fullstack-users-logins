@@ -66,27 +66,3 @@ body {
     -ms-user-select: none !important;
     user-select: none !important;
 }
-
-.user-select-black {
-    &::-moz-selection {
-        color: $color-black;
-        background: $color-black-opacity;
-    }
-
-    &::selection {
-        color: $color-black;
-        background: $color-black-opacity;
-    }
-}
-
-.user-select-turquoise {
-    &::-moz-selection {
-        color: $color-turquoise;
-        background: $color-turquoise-opacity;
-    }
-
-    &::selection {
-        color: $color-turquoise;
-        background: $color-turquoise-opacity;
-    }
-}
