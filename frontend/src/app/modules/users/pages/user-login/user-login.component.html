@@ -1,0 +1,98 @@
+<div class="login">
+    <!-- Form -->
+    <form [formGroup]="loginForm">
+        <!-- Email input -->
+
+        <div class="email-input-container">
+            <!-- Icon -->
+            <div class="icon-container">
+                <svg-icon
+                    class="icon"
+                    src="../../../../../assets/svg/email.svg"
+                    [svgStyle]="{
+                        'width.px': 35,
+                        'height.px': 35
+                    }"
+                ></svg-icon>
+            </div>
+
+            <!-- Input -->
+            <mat-form-field class="email-input">
+                <mat-label>Email</mat-label>
+
+                <input
+                    formControlName="email"
+                    matInput
+                    placeholder="email@example.com"
+                    required
+                    spellcheck="false"
+                />
+
+                <mat-error *ngIf="loginForm.controls['email'].invalid">{{
+                    emailError
+                }}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Password input -->
+
+        <div class="password-input-container">
+            <!-- Icon -->
+            <div class="icon-container">
+                <svg-icon
+                    class="icon"
+                    src="../../../../../assets/svg/password.svg"
+                    [svgStyle]="{
+                        'width.px': 35,
+                        'height.px': 35
+                    }"
+                ></svg-icon>
+            </div>
+
+            <!-- Input -->
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+
+                <input
+                    formControlName="password"
+                    matInput
+                    [type]="hidePassword ? 'password' : 'text'"
+                />
+
+                <button
+                    (click)="switchHidePassword()"
+                    [attr.aria-pressed]="hidePassword"
+                    [attr.aria-label]="'Hide password'"
+                    mat-icon-button
+                    matSuffix
+                >
+                    <mat-icon>{{
+                        hidePassword ? 'visibility_off' : 'visibility'
+                    }}</mat-icon>
+                </button>
+
+                <mat-error *ngIf="loginForm.controls['password'].invalid">{{
+                    passwordError
+                }}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Button -->
+
+        <button
+            mat-flat-button
+            class="login-button"
+            [disabled]="loginForm.invalid"
+            (click)="handleLoginClick()"
+        >
+            Login
+        </button>
+    </form>
+
+    <!-- Not a user -->
+    <div class="signup-container">
+        <p class="user-select-black">
+            Not a user? <span class="user-select-turquoise">Signup now</span>
+        </p>
+    </div>
+</div>

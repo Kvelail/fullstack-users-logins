@@ -35,6 +35,7 @@ $zentury-theme: mat.define-light-theme(
 @include mat.all-component-themes($zentury-theme);
 
 /* You can add global styles to this file, and also import other style files */
+@import './styles/variables.scss';
 
 :root {
     font-size: 62.5%;
@@ -48,10 +49,44 @@ body {
 body {
     margin: 0;
     font-family: Roboto, 'Helvetica Neue', sans-serif;
+    background: $color-grey;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Global classes */
+
+.user-select-none {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+
+.user-select-black {
+    &::-moz-selection {
+        color: $color-black;
+        background: $color-black-opacity;
+    }
+
+    &::selection {
+        color: $color-black;
+        background: $color-black-opacity;
+    }
+}
+
+.user-select-turquoise {
+    &::-moz-selection {
+        color: $color-turquoise;
+        background: $color-turquoise-opacity;
+    }
+
+    &::selection {
+        color: $color-turquoise;
+        background: $color-turquoise-opacity;
+    }
 }
