@@ -1,0 +1,20 @@
+<div class="users-filter">
+    <!-- Search icon -->
+    <svg-icon
+        class="icon"
+        src="../../../../../assets/svg/search.svg"
+        [svgStyle]="{
+            'width.px': 25,
+            'height.px': 25
+        }"
+    ></svg-icon>
+
+    <!-- Search input -->
+    <input
+        #searchInput
+        type="text"
+        placeholder="Search by username or email..."
+        spellcheck="false"
+        (keyup)="handleSearchChange($event)"
+    />
+</div>

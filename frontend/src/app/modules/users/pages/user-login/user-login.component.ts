@@ -82,6 +82,13 @@ export class UserLoginComponent implements OnInit, OnDestroy {
         this.router.navigate([RouteString.DASHBOARD_USERS]);
     }
 
+    // login click on enter key
+    public onKeyDown(event: { keyCode: number }): void {
+        if (event.keyCode === 13) {
+            this.handleLoginClick();
+        }
+    }
+
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();

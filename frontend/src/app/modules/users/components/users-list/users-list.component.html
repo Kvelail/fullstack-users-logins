@@ -1,9 +1,13 @@
 <div class="users-list">
+    <!-- Search filter -->
+    <app-users-filter></app-users-filter>
+
+    <!-- Table -->
     <table
         class="users-list-table"
         mat-table
         matSort
-        [dataSource]="usersListData"
+        [dataSource]="usersListTableData"
     >
         <!-- Position Column -->
         <ng-container matColumnDef="position">
@@ -23,7 +27,7 @@
             <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
 
-        <!-- Email Column -->
+        <!-- Crested At Column -->
         <ng-container matColumnDef="createdAt">
             <th *matHeaderCellDef mat-header-cell mat-sort-header>
                 Created At

@@ -1,6 +1,6 @@
 <div class="login">
     <!-- Form -->
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (keydown)="onKeyDown($event)">
         <!-- Email input -->
 
         <div class="email-input-container">
