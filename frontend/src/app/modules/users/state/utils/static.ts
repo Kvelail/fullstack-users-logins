@@ -21,3 +21,9 @@ export const TABLE_HEADER_ITEMS: string[] = [
     'email',
     'createdAt',
 ];
+
+export const LOGINS_TABLE_HEADER_ITEMS: string[] = [
+    'username',
+    'login passed',
+    'attempt date',
+];

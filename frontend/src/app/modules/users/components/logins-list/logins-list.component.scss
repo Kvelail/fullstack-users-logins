@@ -1,0 +1,35 @@
+@import '../../../../../styles/variables.scss';
+
+.logins-list-table {
+    .mat-mdc-row:nth-child(odd) {
+        background-color: $color-turquoise-opacity-2;
+    }
+
+    .login-cell {
+        text-align: center;
+
+        .success-icon {
+            path {
+                fill: $color-green;
+            }
+        }
+
+        .unsuccess-icon {
+            path {
+                fill: $color-red;
+            }
+        }
+    }
+
+    .username-cell,
+    .login-cell,
+    .date-cell {
+        text-align: center !important;
+        padding-right: 4rem;
+    }
+}
+
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}

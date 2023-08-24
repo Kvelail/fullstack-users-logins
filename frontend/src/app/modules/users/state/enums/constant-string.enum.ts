@@ -5,4 +5,6 @@ export enum ConstantString {
     PATTERN = 'pattern',
     LOGIN = 'login',
     ADD = 'add user',
+    USERS = 'users',
+    LOGINS = 'logins',
 }

@@ -1,0 +1,66 @@
+<div class="logins-list">
+    <!-- Search filter -->
+    <app-users-filter [searchFilterType]="'logins'"></app-users-filter>
+
+    <!-- Table -->
+    <table
+        class="logins-list-table"
+        mat-table
+        matSort
+        [dataSource]="loginsListTableData"
+    >
+        <!-- Name Column -->
+        <ng-container matColumnDef="username">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Username</th>
+            <td class="username-cell" mat-cell *matCellDef="let element">
+                {{ element.username }}
+            </td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="login passed">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                Login Passed
+            </th>
+            <td class="login-cell" mat-cell *matCellDef="let element">
+                <ng-container *ngIf="element.loginPassed === 'SL'">
+                    <svg-icon
+                        class="success-icon"
+                        src="../../../../../assets/svg/success.svg"
+                        [svgStyle]="{
+                            'width.px': 20,
+                            'height.px': 20
+                        }"
+                    ></svg-icon>
+                </ng-container>
+
+                <ng-container *ngIf="element.loginPassed === 'USL'">
+                    <svg-icon
+                        class="unsuccess-icon"
+                        src="../../../../../assets/svg/unsuccess.svg"
+                        [svgStyle]="{
+                            'width.px': 15,
+                            'height.px': 15
+                        }"
+                    ></svg-icon>
+                </ng-container>
+            </td>
+        </ng-container>
+
+        <!-- Crested At Column -->
+        <ng-container matColumnDef="attempt date">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                Attempt Date
+            </th>
+            <td class="date-cell" mat-cell *matCellDef="let element">
+                {{ element.attemptDate }}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <!-- Pagination -->
+    <app-users-pagination [customPagination]="false"></app-users-pagination>
+</div>

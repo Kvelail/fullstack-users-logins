@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 // components
 import { UserLoginComponent } from './pages/user-login/user-login.component';
@@ -25,6 +26,7 @@ import { UsersFilterComponent } from './components/users-filter/users-filter.com
 import { UsersPaginationComponent } from './components/users-pagination/users-pagination.component';
 import { UsersAddComponent } from './components/users-add/users-add.component';
 import { UsersSubmitBtnComponent } from './components/users-submit-btn/users-submit-btn.component';
+import { LoginsListComponent } from './components/logins-list/logins-list.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +39,7 @@ import { UsersSubmitBtnComponent } from './components/users-submit-btn/users-sub
         UsersPaginationComponent,
         UsersAddComponent,
         UsersSubmitBtnComponent,
+        LoginsListComponent,
     ],
     imports: [
         /* modules */
@@ -55,6 +58,7 @@ import { UsersSubmitBtnComponent } from './components/users-submit-btn/users-sub
         MatToolbarModule,
         MatTableModule,
         MatSortModule,
+        MatPaginatorModule,
     ],
     exports: [UsersNavbarComponent],
 })

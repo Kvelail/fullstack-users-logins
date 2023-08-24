@@ -13,7 +13,11 @@
     <input
         #searchInput
         type="text"
-        placeholder="Search by username or email..."
+        [placeholder]="
+            searchFilterType === 'users'
+                ? 'Search by username or email...'
+                : 'Search by username...'
+        "
         spellcheck="false"
         (keyup)="handleSearchChange($event)"
     />

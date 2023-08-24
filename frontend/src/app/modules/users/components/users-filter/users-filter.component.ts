@@ -1,7 +1,16 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    ViewChild,
+    AfterViewInit,
+    Input,
+} from '@angular/core';
 
 // services
 import { SearchFilterService } from '../../state/services/search-filter-service/search-filter.service';
+
+// enums
+import { ConstantString } from '../../state/enums/constant-string.enum';
 
 @Component({
     selector: 'app-users-filter',
@@ -9,6 +18,8 @@ import { SearchFilterService } from '../../state/services/search-filter-service/
     styleUrls: ['./users-filter.component.scss'],
 })
 export class UsersFilterComponent implements AfterViewInit {
+    @Input() searchFilterType: string = ConstantString.USERS;
+
     @ViewChild('searchInput') searchInput!: ElementRef;
 
     constructor(private searchFilterService: SearchFilterService) {}
