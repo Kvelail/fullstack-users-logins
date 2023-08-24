@@ -22,6 +22,7 @@ import { UsersLoginsComponent } from './pages/users-logins/users-logins.componen
 import { UsersNavbarComponent } from './components/users-navbar/users-navbar.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { UsersFilterComponent } from './components/users-filter/users-filter.component';
+import { UsersPaginationComponent } from './components/users-pagination/users-pagination.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +32,7 @@ import { UsersFilterComponent } from './components/users-filter/users-filter.com
         UsersNavbarComponent,
         UsersListComponent,
         UsersFilterComponent,
+        UsersPaginationComponent,
     ],
     imports: [
         /* modules */

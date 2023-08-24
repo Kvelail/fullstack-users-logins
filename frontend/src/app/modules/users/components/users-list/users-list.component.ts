@@ -94,14 +94,14 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
             createdAt: '01/01/23',
         },
     ];
-    public usersListTableData = new MatTableDataSource(this.usersList);
+    public usersListTableData = new MatTableDataSource<User>(this.usersList);
     public displayedColumns: string[] = [];
 
-    constructor(private searchFilterService: SearchFilterService) {
-        this.getTableHeaderItems();
-    }
+    constructor(private searchFilterService: SearchFilterService) {}
 
     ngOnInit(): void {
+        this.getTableHeaderItems();
+
         this.getSearchFilterValue();
     }
 
