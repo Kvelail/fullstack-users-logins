@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { RouterModule } from '@angular/router';
 
 // material ui modules
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 // components
 import { UserLoginComponent } from './pages/user-login/user-login.component';
@@ -31,12 +33,14 @@ import { UsersNavbarComponent } from './components/users-navbar/users-navbar.com
         ReactiveFormsModule,
         HttpClientModule,
         AngularSvgIconModule.forRoot(),
+        RouterModule,
 
         /* material ui modules */
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
         MatButtonModule,
+        MatToolbarModule,
     ],
     exports: [UsersNavbarComponent],
 })

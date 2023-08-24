@@ -1,1 +1,50 @@
-<p>users-navbar works!</p>
+<mat-toolbar class="navbar">
+    <div class="navbar-inner">
+        <!-- Logo -->
+        <div class="logo-container">
+            <svg-icon
+                class="logo"
+                src="../../../../../assets/svg/logo.svg"
+                [svgStyle]="{
+                    'width.px': 50,
+                    'height.px':50,
+                }"
+            ></svg-icon>
+        </div>
+
+        <!-- Links -->
+        <div class="links-container">
+            <ul>
+                <ng-container
+                    *ngFor="
+                        let menuItem of navbarMenuItems;
+                        trackBy: trackByIdentity;
+                        let last = last
+                    "
+                >
+                    <li>
+                        <ng-container *ngIf="!last">
+                            <a
+                                class="link"
+                                [routerLink]="[menuItem.route]"
+                                [routerLinkActive]="'link-active'"
+                            >
+                                {{ menuItem.title }}
+                            </a>
+                        </ng-container>
+
+                        <ng-container *ngIf="last">
+                            <button
+                                mat-stroked-button
+                                class="logout-button"
+                                (click)="handleLogoutClick()"
+                            >
+                                {{ menuItem.title }}
+                            </button>
+                        </ng-container>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+</mat-toolbar>
