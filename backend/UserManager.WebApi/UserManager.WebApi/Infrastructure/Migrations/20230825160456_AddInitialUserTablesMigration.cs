@@ -16,20 +16,20 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                 name: "LoginAttemptType",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "integer", nullable: false),
+                    LoginAttemptTypeId = table.Column<int>(type: "integer", nullable: false),
                     Code = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LoginAttemptType", x => x.ID);
+                    table.PrimaryKey("PK_LoginAttemptType", x => x.LoginAttemptTypeId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "integer", nullable: false)
+                    UserId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Username = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
@@ -38,7 +38,7 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.ID);
+                    table.PrimaryKey("PK_User", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,22 +48,23 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     LoginAttemptTypeId = table.Column<int>(type: "integer", nullable: false),
                     IssuedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UserId1 = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserLoginAttempt", x => x.UserId);
+                    table.PrimaryKey("PK_UserLoginAttempt", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserLoginAttempt_LoginAttemptType_LoginAttemptTypeId",
                         column: x => x.LoginAttemptTypeId,
                         principalTable: "LoginAttemptType",
-                        principalColumn: "ID",
+                        principalColumn: "LoginAttemptTypeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserLoginAttempt_User_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_UserLoginAttempt_User_UserId",
+                        column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "ID",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -73,9 +74,9 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                 column: "LoginAttemptTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserLoginAttempt_UserId1",
+                name: "IX_UserLoginAttempt_UserId",
                 table: "UserLoginAttempt",
-                column: "UserId1");
+                column: "UserId");
         }
 
         /// <inheritdoc />

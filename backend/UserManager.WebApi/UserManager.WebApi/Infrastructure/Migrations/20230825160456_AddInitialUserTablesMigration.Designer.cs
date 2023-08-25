@@ -12,7 +12,7 @@ using UserManager.WebApi.Infrastructure;
 namespace UserManager.WebApi.Infrastructure.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20230825095654_AddInitialUserTablesMigration")]
+    [Migration("20230825160456_AddInitialUserTablesMigration")]
     partial class AddInitialUserTablesMigration
     {
         /// <inheritdoc />
@@ -29,7 +29,6 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                 {
                     b.Property<int>("LoginAttemptTypeId")
                         .HasColumnType("integer")
-                        .HasColumnName("ID")
                         .HasColumnOrder(0);
 
                     b.Property<string>("Code")
@@ -52,7 +51,6 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("ID")
                         .HasColumnOrder(0);
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
@@ -83,9 +81,11 @@ namespace UserManager.WebApi.Infrastructure.Migrations
 
             modelBuilder.Entity("UserManager.WebApi.Infrastructure.Models.UserLoginAttempt", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
-                        .HasColumnOrder(0);
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("IssuedDate")
                         .HasColumnType("timestamp with time zone")
@@ -95,14 +95,15 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnOrder(1);
 
-                    b.Property<int>("UserId1")
-                        .HasColumnType("integer");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnOrder(0);
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.HasIndex("LoginAttemptTypeId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserLoginAttempt", (string)null);
                 });
@@ -117,7 +118,7 @@ namespace UserManager.WebApi.Infrastructure.Migrations
 
                     b.HasOne("UserManager.WebApi.Infrastructure.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -7,7 +7,7 @@ namespace UserManager.WebApi.Infrastructure.Models
     {
         [Key]
         [Required]
-        [Column(name: "ID", Order = 0)]
+        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LoginAttemptTypeId { get; set; }
 

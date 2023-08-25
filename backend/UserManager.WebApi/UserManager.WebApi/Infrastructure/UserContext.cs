@@ -40,8 +40,7 @@ namespace UserManager.WebApi.Infrastructure
 
             modelBuilder
                 .Entity<LoginAttemptType>()
-                .ToTable("LoginAttemptType")
-                .HasKey(lat => new { lat.LoginAttemptTypeId });
+                .ToTable("LoginAttemptType");
 
             modelBuilder
                 .Entity<LoginAttemptType>()
@@ -65,7 +64,7 @@ namespace UserManager.WebApi.Infrastructure
                 {
                     UserId = 1,
                     Username = "kvelail",
-                    Password = "Kvelail1234",
+                    Password = "Kvelail123",
                     Email = "kvelail@gmail.com",
                     RegisteredDate = DateTime.UtcNow
                 });

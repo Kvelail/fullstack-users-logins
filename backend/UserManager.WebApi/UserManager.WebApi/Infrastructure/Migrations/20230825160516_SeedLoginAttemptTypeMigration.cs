@@ -14,7 +14,7 @@ namespace UserManager.WebApi.Infrastructure.Migrations
         {
             migrationBuilder.InsertData(
                 table: "LoginAttemptType",
-                columns: new[] { "ID", "Code", "Description" },
+                columns: new[] { "LoginAttemptTypeId", "Code", "Description" },
                 values: new object[,]
                 {
                     { 1, "SL", "Successful login" },
@@ -27,12 +27,12 @@ namespace UserManager.WebApi.Infrastructure.Migrations
         {
             migrationBuilder.DeleteData(
                 table: "LoginAttemptType",
-                keyColumn: "ID",
+                keyColumn: "LoginAttemptTypeId",
                 keyValue: 1);
 
             migrationBuilder.DeleteData(
                 table: "LoginAttemptType",
-                keyColumn: "ID",
+                keyColumn: "LoginAttemptTypeId",
                 keyValue: 2);
         }
     }

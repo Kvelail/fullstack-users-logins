@@ -13,8 +13,8 @@ namespace UserManager.WebApi.Infrastructure.Migrations
         {
             migrationBuilder.InsertData(
                 table: "User",
-                columns: new[] { "ID", "Email", "Password", "RegisteredDate", "Username" },
-                values: new object[] { 1, "kvelail@gmail.com", "Kvelail1234", new DateTime(2023, 8, 25, 10, 8, 51, 327, DateTimeKind.Utc).AddTicks(4991), "kvelail" });
+                columns: new[] { "UserId", "Email", "Password", "RegisteredDate", "Username" },
+                values: new object[] { 1, "kvelail@gmail.com", "Kvelail123", new DateTime(2023, 8, 25, 16, 6, 18, 292, DateTimeKind.Utc).AddTicks(3323), "kvelail" });
         }
 
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace UserManager.WebApi.Infrastructure.Migrations
         {
             migrationBuilder.DeleteData(
                 table: "User",
-                keyColumn: "ID",
+                keyColumn: "UserId",
                 keyValue: 1);
         }
     }

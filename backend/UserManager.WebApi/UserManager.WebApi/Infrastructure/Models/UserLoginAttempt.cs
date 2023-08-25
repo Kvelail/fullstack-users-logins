@@ -7,12 +7,16 @@ namespace UserManager.WebApi.Infrastructure.Models
     {
         [Key]
         [Required]
+        public int Id { get; set; }
+
+        [Required]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UserId { get; set; }
 
         [Required]
         [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LoginAttemptTypeId { get; set; }
 
         [Required]
