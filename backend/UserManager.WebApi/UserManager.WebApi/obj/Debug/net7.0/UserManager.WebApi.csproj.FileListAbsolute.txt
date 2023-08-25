@@ -24,3 +24,14 @@ C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserMan
 C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\obj\Debug\net7.0\UserManager.WebApi.pdb
 C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\obj\Debug\net7.0\UserManager.WebApi.genruntimeconfig.cache
 C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\obj\Debug\net7.0\ref\UserManager.WebApi.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Humanizer.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Npgsql.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\obj\Debug\net7.0\UserManager.WebApi.csproj.CopyComplete
