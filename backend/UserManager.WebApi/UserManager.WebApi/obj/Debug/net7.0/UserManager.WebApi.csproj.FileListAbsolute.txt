@@ -35,3 +35,10 @@ C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserMan
 C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\System.CodeDom.dll
 C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\obj\Debug\net7.0\UserManager.WebApi.csproj.CopyComplete
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Tarik\Desktop\fullstack-users-logins\backend\UserManager.WebApi\UserManager.WebApi\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

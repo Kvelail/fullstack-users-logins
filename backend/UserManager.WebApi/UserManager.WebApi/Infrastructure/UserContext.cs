@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using UserManager.WebApi.Helpers;
 using UserManager.WebApi.Infrastructure.Models;
 
 namespace UserManager.WebApi.Infrastructure
@@ -64,7 +65,7 @@ namespace UserManager.WebApi.Infrastructure
                 {
                     UserId = 1,
                     Username = "kvelail",
-                    Password = "Kvelail123",
+                    Password = EncryptionHelper.EncryptBase64("Kvelail123"),
                     Email = "kvelail@gmail.com",
                     RegisteredDate = DateTime.UtcNow
                 });

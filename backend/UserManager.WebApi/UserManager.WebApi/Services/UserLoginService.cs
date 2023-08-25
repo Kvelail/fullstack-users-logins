@@ -2,6 +2,7 @@
 using UserManager.WebApi.Helpers;
 using UserManager.WebApi.Interfaces.Infrastructure;
 using UserManager.WebApi.Interfaces.Services;
+using UserManager.WebApi.Models;
 using UserManager.WebApi.Models.Dtos;
 
 namespace UserManager.WebApi.Services
@@ -10,15 +11,18 @@ namespace UserManager.WebApi.Services
     {
         private readonly IUserLoginRepository _userLoginRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
 
         public UserLoginService
         (
            IUserLoginRepository userLoginRepository,
-           IUserRepository userRepository
+           IUserRepository userRepository,
+           IConfiguration configuration
         )
         {
             _userLoginRepository = userLoginRepository;
             _userRepository = userRepository;
+            _configuration = configuration;
         }
 
         public async Task<List<UserLoginAttemptDTO>> GetAllUserLoginAttemptsAsync()
@@ -26,7 +30,7 @@ namespace UserManager.WebApi.Services
             return await _userLoginRepository.GetAllUserLoginAttemptsAsync();
         }
 
-        public async Task<WebApi.Models.Dtos.UserDTO> ValidateUserAsync(string email, string password)
+        public async Task<AuthResponse> ValidateUserAsync(string email, string password)
         {
             var user = await _userRepository.GetUserByEmailAsync(email);
 
@@ -56,7 +60,18 @@ namespace UserManager.WebApi.Services
             userLoginAttempt.LoginAttemptType.Id = 1;
             await _userLoginRepository.InsertUserLoginAttempt(userLoginAttempt);
 
-            return user;
+            string authIssuer = _configuration["Authentication:Issuer"];
+            string authKey = _configuration["Authentication:Key"];
+            int authExpiresAfterHours = Int32.Parse(_configuration["Authentication:ExpiresAfterHours"]);
+
+            string accessToken = AuthenticationHelper.GenerateJSONWebToken(authIssuer, authKey, authExpiresAfterHours);
+
+            var authResponse = new AuthResponse
+            {
+                AccessToken = accessToken
+            };
+
+            return authResponse;
         }
     }
 }

@@ -94,8 +94,8 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                         {
                             UserId = 1,
                             Email = "kvelail@gmail.com",
-                            Password = "Kvelail123",
-                            RegisteredDate = new DateTime(2023, 8, 25, 16, 6, 18, 292, DateTimeKind.Utc).AddTicks(3323),
+                            Password = "S3ZlbGFpbDEyMw==",
+                            RegisteredDate = new DateTime(2023, 8, 25, 19, 47, 43, 328, DateTimeKind.Utc).AddTicks(5013),
                             Username = "kvelail"
                         });
                 });

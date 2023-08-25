@@ -12,8 +12,8 @@ using UserManager.WebApi.Infrastructure;
 namespace UserManager.WebApi.Infrastructure.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20230825160516_SeedLoginAttemptTypeMigration")]
-    partial class SeedLoginAttemptTypeMigration
+    [Migration("20230825194613_AddInitialUserTablesMigration")]
+    partial class AddInitialUserTablesMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,20 +44,6 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                     b.HasKey("LoginAttemptTypeId");
 
                     b.ToTable("LoginAttemptType", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            LoginAttemptTypeId = 1,
-                            Code = "SL",
-                            Description = "Successful login"
-                        },
-                        new
-                        {
-                            LoginAttemptTypeId = 2,
-                            Code = "USL",
-                            Description = "Unsuccessful login"
-                        });
                 });
 
             modelBuilder.Entity("UserManager.WebApi.Infrastructure.Models.User", b =>
