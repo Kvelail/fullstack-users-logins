@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserManager.WebApi.Interfaces.Services;
+using UserManager.WebApi.Models;
 using UserManager.WebApi.Models.Dtos;
 
 namespace UserManager.WebApi.Controllers
 {
+    [Authorize]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -71,13 +74,14 @@ namespace UserManager.WebApi.Controllers
 
         [HttpPost]
         [Route("api/user/validate")]
+        [AllowAnonymous]
         public async Task<IActionResult> ValidateUser(UserDTO user)
         {
             try
             {
-                var validatedUser = await _userLoginService.ValidateUserAsync(user.Email, user.Password);
+                var authResponse = await _userLoginService.ValidateUserAsync(user.Email, user.Password);
 
-                return Ok(validatedUser);
+                return Ok(authResponse);
             }
             catch (Exception ex)
             {
