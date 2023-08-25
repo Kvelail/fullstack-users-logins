@@ -12,14 +12,19 @@ import { Subject, takeUntil } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-// models
-import { User } from '../../state/models/user.model';
-
 // static
 import { TABLE_HEADER_ITEMS } from '../../state/utils/static';
 
 // services
 import { SearchFilterService } from '../../state/services/search-filter-service/search-filter.service';
+import { UsersService } from '../../state/services/users.service';
+
+// store
+import { UsersQuery } from './../../state/store/users.query';
+
+// models
+import { User } from '../../state/models/user.model';
+import { PaginationModel } from '../../state/models/pagination.model';
 
 @Component({
     selector: 'app-users-list',
@@ -32,77 +37,28 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
 
     // construct table
-    private usersList: User[] = [
-        {
-            position: 1,
-            username: 'Hydrogen',
-            email: 'aaaa@asd.com',
-            createdAt: '01/01/23',
-        },
-        {
-            position: 2,
-            username: 'Helium',
-            email: 'bbb@asd.com',
-            createdAt: '02/01/23',
-        },
-        {
-            position: 3,
-            username: 'Lithium',
-            email: 'ccc@asd.com',
-            createdAt: '01/01/23',
-        },
-        {
-            position: 4,
-            username: 'Beryllium',
-            email: 'ddd@asd.com',
-            createdAt: '03/01/23',
-        },
-        {
-            position: 5,
-            username: 'Boron',
-            email: 'eee@asd.com',
-            createdAt: '01/01/23',
-        },
-        {
-            position: 6,
-            username: 'Carbon',
-            email: 'aaaa@asd.com',
-            createdAt: '01/01/23',
-        },
-        {
-            position: 7,
-            username: 'Nitrogen',
-            email: 'aaaa@asd.com',
-            createdAt: '04/01/23',
-        },
-        {
-            position: 8,
-            username: 'Oxygen',
-            email: 'aaaa@asd.com',
-            createdAt: '01/01/23',
-        },
-        {
-            position: 9,
-            username: 'Fluorine',
-            email: 'aaaa@asd.com',
-            createdAt: '06/01/23',
-        },
-        {
-            position: 10,
-            username: 'Neon',
-            email: 'aaaa@asd.com',
-            createdAt: '01/01/23',
-        },
-    ];
-    public usersListTableData = new MatTableDataSource<User>(this.usersList);
+    private usersList: User[] = [];
+    public usersListTableData = new MatTableDataSource<User>([]);
     public displayedColumns: string[] = [];
 
-    constructor(private searchFilterService: SearchFilterService) {}
+    // pagination
+    public numberOfPaginationArray: PaginationModel[] = [];
+    public usersCount: number = 0;
+
+    constructor(
+        private searchFilterService: SearchFilterService,
+        private usersService: UsersService,
+        private usersQuery: UsersQuery
+    ) {}
 
     ngOnInit(): void {
         this.getTableHeaderItems();
 
         this.getSearchFilterValue();
+
+        this.getUsersCount();
+
+        this.getAllUsers();
     }
 
     ngAfterViewInit(): void {
@@ -116,7 +72,9 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
 
     // sort columns
     public sortUsersListData(): void {
-        this.usersListTableData.sort = this.sort;
+        setTimeout(() => {
+            this.usersListTableData.sort = this.sort;
+        }, 100);
     }
 
     // get search filter value and filter users by value
@@ -141,6 +99,72 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
                     );
                 }
             });
+    }
+
+    // get all users - from store
+    public getAllUsers(): void {
+        this.usersQuery.users$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((users: User[]) => {
+                if (users) {
+                    /* 10 users per page in pagination */
+                    this.numberOfPaginationArray = Array(
+                        Math.ceil(this.usersCount / 10)
+                    )
+                        .fill(0)
+                        .map((_, i) => {
+                            return {
+                                number: i + 1,
+                                isActive: i === 0 ? true : false,
+                            };
+                        });
+
+                    // users table
+                    this.usersList = users;
+                    this.usersListTableData = new MatTableDataSource(users);
+                }
+            });
+    }
+
+    // get users count
+    public getUsersCount(): void {
+        this.usersQuery.usersCount$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((usersCount: number) => {
+                if (usersCount) {
+                    this.usersCount = usersCount;
+                }
+            });
+    }
+
+    // handle pagination number emit
+    public handlePaginationNumberEmit(paginationNumber: number): void {
+        /* Change active pagination number */
+        this.numberOfPaginationArray = this.numberOfPaginationArray.map(
+            (item: PaginationModel, index: number) => {
+                if (item.isActive) {
+                    return {
+                        ...item,
+                        isActive: false,
+                    };
+                }
+
+                if (index === paginationNumber - 1) {
+                    return {
+                        ...item,
+                        isActive: true,
+                    };
+                }
+
+                return item;
+            }
+        );
+
+        // get paginated users list
+        this.usersService
+            .getPaginatedUsers(paginationNumber)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe();
     }
 
     ngOnDestroy(): void {

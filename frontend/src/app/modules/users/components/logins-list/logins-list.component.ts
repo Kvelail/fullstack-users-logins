@@ -15,6 +15,9 @@ import { Login } from '../../state/models/login.model';
 // services
 import { SearchFilterService } from '../../state/services/search-filter-service/search-filter.service';
 
+// store
+import { UsersQuery } from '../../state/store/users.query';
+
 @Component({
     selector: 'app-logins-list',
     templateUrl: './logins-list.component.html',
@@ -26,72 +29,21 @@ export class LoginsListComponent implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
 
     // construct table
-    private loginsList: Login[] = [
-        {
-            username: 'Hydrogen',
-            loginPassed: 'SL',
-            attemptDate: '01/01/23',
-        },
-        {
-            username: 'Helium',
-            loginPassed: 'USL',
-            attemptDate: '01/01/23',
-        },
-        {
-            username: 'Lithium',
-            loginPassed: 'USL',
-            attemptDate: '01/01/23',
-        },
-        {
-            username: 'Beryllium',
-            loginPassed: 'USL',
-            attemptDate: '01/01/23',
-        },
-        {
-            username: 'Boron',
-            loginPassed: 'SL',
-            attemptDate: '01/01/23',
-        },
-        {
-            username: 'Carbon',
-            loginPassed: 'SL',
-            attemptDate: '01/01/23',
-        },
-        {
-            username: 'Nitrogen',
-            loginPassed: 'USL',
-            attemptDate: '01/01/23',
-        },
-        {
-            username: 'Oxygen',
-            loginPassed: 'SL',
-            attemptDate: '01/01/23',
-        },
-        {
-            username: 'Fluorine',
-            loginPassed: 'SL',
-            attemptDate: '01/01/23',
-        },
-        {
-            username: 'Neon',
-            loginPassed: 'SL',
-            attemptDate: '01/01/23',
-        },
-        {
-            username: 'Boron',
-            loginPassed: 'SL',
-            attemptDate: '01/01/23',
-        },
-    ];
-    public loginsListTableData = new MatTableDataSource(this.loginsList);
+    private loginsList: Login[] = [];
+    public loginsListTableData = new MatTableDataSource<Login>([]);
     public displayedColumns: string[] = [];
 
-    constructor(private searchFilterService: SearchFilterService) {}
+    constructor(
+        private searchFilterService: SearchFilterService,
+        private usersQuery: UsersQuery
+    ) {}
 
     ngOnInit(): void {
         this.getTableHeaderItems();
 
         this.getSearchFilterValue();
+
+        this.getLogins();
     }
 
     // get table header items
@@ -116,6 +68,18 @@ export class LoginsListComponent implements OnInit, OnDestroy {
                     this.loginsListTableData = new MatTableDataSource(
                         filteredUsersListData
                     );
+                }
+            });
+    }
+
+    // get logins - from store
+    public getLogins(): void {
+        this.usersQuery.logins$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((logins: Login[]) => {
+                if (logins) {
+                    this.loginsList = logins;
+                    this.loginsListTableData = new MatTableDataSource(logins);
                 }
             });
     }

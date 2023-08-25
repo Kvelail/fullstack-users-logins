@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { Subject, takeUntil } from 'rxjs';
 
@@ -13,7 +12,9 @@ import {
 // enums
 import { ConstantString } from '../../state/enums/constant-string.enum';
 import { ValidationMessage } from '../../state/enums/validation-message.enum';
-import { RouteString } from '../../state/enums/route-string.enum';
+
+// services
+import { UsersService } from '../../state/services/users.service';
 
 @Component({
     selector: 'app-user-login',
@@ -31,7 +32,10 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     public emailError!: string;
     public passwordError!: string;
 
-    constructor(private formBuilder: FormBuilder, public router: Router) {}
+    constructor(
+        private formBuilder: FormBuilder,
+        private userService: UsersService
+    ) {}
 
     ngOnInit(): void {
         this.createForm();
@@ -85,7 +89,17 @@ export class UserLoginComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.router.navigate([RouteString.DASHBOARD_USERS]);
+        // login data
+        const loginFormValue = loginForm.value;
+        const loginData = {
+            ...loginFormValue,
+        };
+
+        // login user
+        this.userService
+            .loginUser(loginData)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe();
     }
 
     // handle button type emit

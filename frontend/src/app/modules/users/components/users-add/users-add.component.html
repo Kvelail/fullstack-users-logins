@@ -6,7 +6,7 @@
 
     <!-- Form -->
     <div class="add-users-form">
-        <form [formGroup]="addUserForm">
+        <form [formGroup]="addUserForm" (keydown)="onKeyDown($event)">
             <!-- Username input -->
             <mat-form-field>
                 <mat-label>Username</mat-label>
