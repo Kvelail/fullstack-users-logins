@@ -9,6 +9,7 @@ export class UsersQuery extends QueryEntity<UsersState> {
     public users$ = this.select('users');
     public logins$ = this.select('logins');
     public usersCount$ = this.select('usersCount');
+    public usersToken$ = this.select('token');
 
     constructor(protected usersStore: UsersStore) {
         super(usersStore);

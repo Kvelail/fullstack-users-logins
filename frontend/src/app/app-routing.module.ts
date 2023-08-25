@@ -6,6 +6,9 @@ import { UserLoginComponent } from './modules/users/pages/user-login/user-login.
 import { UsersComponent } from './modules/users/pages/users/users.component';
 import { UsersLoginsComponent } from './modules/users/pages/users-logins/users-logins.component';
 
+// guards
+import { UsersAuthenticationGuard } from './modules/users/state/guards/users-authentication.guard';
+
 const routes: Routes = [
     {
         path: '',
@@ -14,10 +17,12 @@ const routes: Routes = [
     {
         path: 'dashboard/users',
         component: UsersComponent,
+        canActivate: [UsersAuthenticationGuard],
     },
     {
         path: 'dashboard/logins',
         component: UsersLoginsComponent,
+        canActivate: [UsersAuthenticationGuard],
     },
     { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
