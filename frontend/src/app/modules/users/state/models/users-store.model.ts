@@ -5,4 +5,5 @@ export interface IUsersStore {
     users: UserDTO[];
     logins: Login[];
     usersCount: number;
+    token: string;
 }

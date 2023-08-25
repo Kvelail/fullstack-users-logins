@@ -10,15 +10,17 @@ import { format } from 'date-fns';
 
 // store
 import { UsersStore } from './../store/users.store';
+import { UsersQuery } from '../store/users.query';
+
+// enums
+import { RouteString } from '../enums/route-string.enum';
 
 // models
 import { UserDTO } from '../models/dto/userDTO.model';
 import { CreateUserDTO } from '../models/dto/create-userDTO.model';
 import { LoginsDTO } from '../models/dto/loginsDTO.model';
 import { LoginData } from '../models/login-data.model';
-
-// enums
-import { RouteString } from '../enums/route-string.enum';
+import { AuthToken } from '../models/token.model';
 
 @Injectable({
     providedIn: 'root',
@@ -27,6 +29,7 @@ export class UsersService {
     constructor(
         private http: HttpClient,
         private usersStore: UsersStore,
+        private usersQuery: UsersQuery,
         private router: Router
     ) {}
 
@@ -153,7 +156,7 @@ export class UsersService {
     }
 
     // login user
-    public loginUser(loginData: LoginData) {
+    public loginUser(loginData: LoginData): Observable<AuthToken> {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
@@ -161,14 +164,33 @@ export class UsersService {
         };
 
         const response = this.http
-            .post('/api/user/validate', loginData, httpOptions)
+            .post<AuthToken>('/api/user/validate', loginData, httpOptions)
             .pipe(
-                tap(() => {
-                    console.log('USLO');
+                tap((token) => {
+                    // update store
+                    this.usersStore.update((store) => {
+                        return {
+                            ...store,
+                            token: token.accessToken,
+                        };
+                    });
+
+                    // navigate to dashboard
                     this.router.navigate([RouteString.DASHBOARD_USERS]);
                 })
             );
 
         return response;
+    }
+
+    // get token
+    private getToken(): string {
+        let token = '';
+
+        this.usersQuery.usersToken$.subscribe((userToken) => {
+            token = userToken;
+        });
+
+        return token;
     }
 }

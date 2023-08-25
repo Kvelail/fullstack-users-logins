@@ -2,11 +2,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { RouterModule } from '@angular/router';
 
 import { DateFnsModule } from 'ngx-date-fns';
+
+// interceptors
+import { AuthInterceptor } from './state/interceptors/users.interceptor';
 
 // material ui modules
 import { MatIconModule } from '@angular/material/icon';
@@ -65,5 +68,12 @@ import { LoginsListComponent } from './components/logins-list/logins-list.compon
         MatPaginatorModule,
     ],
     exports: [UsersNavbarComponent],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
+    ],
 })
 export class UsersModule {}
