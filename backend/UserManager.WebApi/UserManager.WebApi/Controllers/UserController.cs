@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserManager.WebApi.Interfaces.Services;
+using UserManager.WebApi.Models.Dtos;
 
 namespace UserManager.WebApi.Controllers
 {
@@ -8,13 +9,16 @@ namespace UserManager.WebApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IUserLoginService _userLoginService;
 
         public UserController
         (
-            IUserService userService
+            IUserService userService,
+            IUserLoginService userLoginService
         )
         {
             _userService = userService;
+            _userLoginService = userLoginService;
         }
 
         [HttpGet]
@@ -42,6 +46,54 @@ namespace UserManager.WebApi.Controllers
                 var users = await _userService.GetPaginatedUsersAsync(paginationNumber, countNumber);
 
                 return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("api/user")]
+        public async Task<IActionResult> CreateUser(UserDTO user)
+        {
+            try
+            {
+                await _userService.CreateNewUserAsync(user);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("api/user/validate")]
+        public async Task<IActionResult> ValidateUser(UserDTO user)
+        {
+            try
+            {
+                var validatedUser = await _userLoginService.ValidateUserAsync(user.Email, user.Password);
+
+                return Ok(validatedUser);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("api/users/logins")]
+        public async Task<IActionResult> GetUsersLoginAttempts()
+        {
+            try
+            {
+                var usersLoginAttemps = await _userLoginService.GetAllUserLoginAttemptsAsync();
+
+                return Ok(usersLoginAttemps);
             }
             catch (Exception ex)
             {

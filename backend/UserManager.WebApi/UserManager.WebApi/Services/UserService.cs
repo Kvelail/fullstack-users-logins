@@ -25,5 +25,11 @@ namespace UserManager.WebApi.Services
 
             return await _userRepository.GetFilteredUsersAsync(firstNRecordsToSkip, nextNRecordsToTake);
         }
+
+        public async Task CreateNewUserAsync(UserDTO user)
+        {
+            if (!await _userRepository.CreateNewUserAsync(user))
+                throw new ArgumentException("User with provided username already exists");
+        }
     }
 }

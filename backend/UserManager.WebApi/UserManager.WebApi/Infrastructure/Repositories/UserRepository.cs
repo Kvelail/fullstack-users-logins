@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UserManager.WebApi.Infrastructure.Models;
 using UserManager.WebApi.Interfaces.Infrastructure;
+using UserManager.WebApi.Models.Dtos;
 
 namespace UserManager.WebApi.Infrastructure.Repositories
 {
@@ -32,6 +34,7 @@ namespace UserManager.WebApi.Infrastructure.Repositories
         {
             var dbUsers =
                 _context.Users
+                    .Skip(1)
                     .Skip(firstNRecordsToSkip)
                     .Take(nextNRecordsToTake);
 
@@ -45,6 +48,43 @@ namespace UserManager.WebApi.Infrastructure.Repositories
                         RegisteredDate = u.RegisteredDate,
                     })
                     .ToListAsync();
+        }
+
+        public async Task<WebApi.Models.Dtos.UserDTO?> GetUserByEmailAsync(string email)
+        {
+            var dbUser = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+
+            if (dbUser == null)
+                return null;
+
+            return new UserDTO
+            {
+                Id = dbUser.UserId,
+                Username = dbUser.Username,
+                Password = dbUser.Password,
+                Email = dbUser.Email,
+                RegisteredDate = dbUser.RegisteredDate
+            };
+        }
+
+        public async Task<bool> CreateNewUserAsync(WebApi.Models.Dtos.UserDTO user)
+        {
+            var dbUser = _context.Users.SingleOrDefault(u => u.Username == user.Username || u.Email == user.Email);
+
+            if (dbUser != null)
+                return false;
+
+            dbUser = new User();
+
+            dbUser.Username = user.Username;
+            dbUser.Password = user.Password;
+            dbUser.Email = user.Email;
+            dbUser.RegisteredDate = DateTime.UtcNow;
+
+            await _context.Users.AddAsync(dbUser);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

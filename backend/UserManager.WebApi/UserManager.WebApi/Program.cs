@@ -12,7 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IUserLoginService, UserLoginService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IUserLoginRepository, UserLoginRepository>();
 
 builder.Services.AddDbContext<UserContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ZenturyDb")));
@@ -30,12 +32,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var dbContext = scope.ServiceProvider
-//        .GetRequiredService<UserContext>();
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider
+        .GetRequiredService<UserContext>();
 
-//    dbContext.Database.Migrate();
-//}
+    dbContext.Database.Migrate();
+}
 
 app.Run();
