@@ -5,6 +5,7 @@ namespace UserManager.WebApi.Infrastructure.Models
 {
     public class LoginAttemptType
     {
+        [Key]
         [Required]
         [Column(name: "ID", Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -12,11 +13,9 @@ namespace UserManager.WebApi.Infrastructure.Models
 
         [Required]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Code { get; set; }
 
         [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Description { get; set; }
     }
 }

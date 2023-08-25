@@ -12,8 +12,8 @@ using UserManager.WebApi.Infrastructure;
 namespace UserManager.WebApi.Infrastructure.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20230825092205_InsertDefaultUserMigration")]
-    partial class InsertDefaultUserMigration
+    [Migration("20230825100815_SeedLoginAttemptTypeMigration")]
+    partial class SeedLoginAttemptTypeMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,16 +93,6 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            Email = "kvelail@gmail.com",
-                            Password = "Kvelail1234",
-                            RegisteredDate = new DateTime(2023, 8, 25, 9, 22, 5, 805, DateTimeKind.Utc).AddTicks(3809),
-                            Username = "kvelail"
-                        });
                 });
 
             modelBuilder.Entity("UserManager.WebApi.Infrastructure.Models.UserLoginAttempt", b =>

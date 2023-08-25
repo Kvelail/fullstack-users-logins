@@ -14,7 +14,7 @@ namespace UserManager.WebApi.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "ID", "Email", "Password", "RegisteredDate", "Username" },
-                values: new object[] { 1, "kvelail@gmail.com", "Kvelail1234", new DateTime(2023, 8, 25, 9, 22, 5, 805, DateTimeKind.Utc).AddTicks(3809), "kvelail" });
+                values: new object[] { 1, "kvelail@gmail.com", "Kvelail1234", new DateTime(2023, 8, 25, 10, 8, 51, 327, DateTimeKind.Utc).AddTicks(4991), "kvelail" });
         }
 
         /// <inheritdoc />

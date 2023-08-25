@@ -12,8 +12,8 @@ using UserManager.WebApi.Infrastructure;
 namespace UserManager.WebApi.Infrastructure.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20230825092118_AddInitialUserTablesMigration")]
-    partial class AddInitialUserTablesMigration
+    [Migration("20230825100851_InsertDefaultUserMigration")]
+    partial class InsertDefaultUserMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,20 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                     b.HasKey("LoginAttemptTypeId");
 
                     b.ToTable("LoginAttemptType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            LoginAttemptTypeId = 1,
+                            Code = "SL",
+                            Description = "Successful login"
+                        },
+                        new
+                        {
+                            LoginAttemptTypeId = 2,
+                            Code = "USL",
+                            Description = "Unsuccessful login"
+                        });
                 });
 
             modelBuilder.Entity("UserManager.WebApi.Infrastructure.Models.User", b =>
@@ -79,6 +93,16 @@ namespace UserManager.WebApi.Infrastructure.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            Email = "kvelail@gmail.com",
+                            Password = "Kvelail1234",
+                            RegisteredDate = new DateTime(2023, 8, 25, 10, 8, 51, 327, DateTimeKind.Utc).AddTicks(4991),
+                            Username = "kvelail"
+                        });
                 });
 
             modelBuilder.Entity("UserManager.WebApi.Infrastructure.Models.UserLoginAttempt", b =>
