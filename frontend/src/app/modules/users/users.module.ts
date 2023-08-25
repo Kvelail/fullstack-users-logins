@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { RouterModule } from '@angular/router';
 
+import { DateFnsModule } from 'ngx-date-fns';
+
 // material ui modules
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -49,6 +51,8 @@ import { LoginsListComponent } from './components/logins-list/logins-list.compon
         HttpClientModule,
         AngularSvgIconModule.forRoot(),
         RouterModule,
+
+        DateFnsModule.forRoot(),
 
         /* material ui modules */
         MatFormFieldModule,

@@ -6,6 +6,10 @@
         border-radius: 0.5rem;
     }
 
+    .username-cell {
+        text-transform: capitalize;
+    }
+
     .mat-mdc-row:nth-child(odd) {
         background-color: $color-turquoise-opacity-2;
     }

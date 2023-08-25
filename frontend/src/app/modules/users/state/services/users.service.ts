@@ -1,0 +1,174 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+// dates
+import { format } from 'date-fns';
+
+// store
+import { UsersStore } from './../store/users.store';
+
+// models
+import { UserDTO } from '../models/dto/userDTO.model';
+import { CreateUserDTO } from '../models/dto/create-userDTO.model';
+import { LoginsDTO } from '../models/dto/loginsDTO.model';
+import { LoginData } from '../models/login-data.model';
+
+// enums
+import { RouteString } from '../enums/route-string.enum';
+
+@Injectable({
+    providedIn: 'root',
+})
+export class UsersService {
+    constructor(
+        private http: HttpClient,
+        private usersStore: UsersStore,
+        private router: Router
+    ) {}
+
+    // get all users
+    public getAllUsers(): Observable<UserDTO[]> {
+        const response = this.http.get<UserDTO[]>('/api/users').pipe(
+            tap((users) => {
+                // update store
+                this.usersStore.update((store) => {
+                    return {
+                        ...store,
+                        usersCount: users.length - 1,
+                    };
+                });
+            })
+        );
+
+        return response;
+    }
+
+    // get paginated users
+    public getPaginatedUsers(
+        paginationNumber: number = 1
+    ): Observable<UserDTO[]> {
+        // users per page
+        const countNumber = 10;
+
+        const response = this.http
+            .get<UserDTO[]>(
+                `/api/users/paginated?paginationNumber=${paginationNumber}&countNumber=${countNumber}`
+            )
+            .pipe(
+                tap((users) => {
+                    // filter users array
+                    const filteredUsers = users.map((user) => {
+                        const formatedDate = format(
+                            new Date(user.registeredDate),
+                            'MM/dd/yyyy'
+                        );
+
+                        return {
+                            username: user.username,
+                            email: user.email,
+                            registeredDate: formatedDate,
+                        };
+                    });
+
+                    // update store
+                    this.usersStore.update((store) => {
+                        return {
+                            ...store,
+                            users: filteredUsers,
+                        };
+                    });
+                })
+            );
+
+        return response;
+    }
+
+    // get all logins
+    public getAllLogins(): Observable<LoginsDTO[]> {
+        const response = this.http.get<LoginsDTO[]>('/api/users/logins').pipe(
+            tap((logins) => {
+                // filter logins array
+                const filteredLogins = logins
+                    .map((login) => {
+                        const formatedDate = format(
+                            new Date(login.issuedDate),
+                            'dd.MM.yyyy HH:mm'
+                        );
+
+                        return {
+                            username: login.user.username,
+                            loginPassed: login.loginAttemptType.code,
+                            attemptDate: formatedDate,
+                        };
+                    })
+                    .reverse();
+
+                // update store
+                this.usersStore.update((store) => {
+                    return {
+                        ...store,
+                        logins: filteredLogins,
+                    };
+                });
+            })
+        );
+
+        return response;
+    }
+
+    // create new user
+    public createUser(user: CreateUserDTO): Observable<CreateUserDTO> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        };
+
+        // filter user
+        const filteredUser = {
+            username: user.username,
+            email: user.email,
+            password: user.password,
+        };
+
+        const response = this.http
+            .post<CreateUserDTO>('/api/user', filteredUser, httpOptions)
+            .pipe(
+                tap(() => {
+                    // update store
+                    this.usersStore.update((store) => {
+                        return {
+                            ...store,
+                            users: [...store['users'], user],
+                        };
+                    });
+                })
+            );
+
+        return response;
+    }
+
+    // login user
+    public loginUser(loginData: LoginData) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        };
+
+        const response = this.http
+            .post('/api/user/validate', loginData, httpOptions)
+            .pipe(
+                tap(() => {
+                    console.log('USLO');
+                    this.router.navigate([RouteString.DASHBOARD_USERS]);
+                })
+            );
+
+        return response;
+    }
+}

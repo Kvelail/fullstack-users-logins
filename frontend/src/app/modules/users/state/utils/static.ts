@@ -16,10 +16,9 @@ export const NAVBAR_MENU_ITEMS: NavbarLink[] = [
 ];
 
 export const TABLE_HEADER_ITEMS: string[] = [
-    'position',
     'username',
     'email',
-    'createdAt',
+    'registeredDate',
 ];
 
 export const LOGINS_TABLE_HEADER_ITEMS: string[] = [
