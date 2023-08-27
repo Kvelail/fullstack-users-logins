@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UserManager.WebApi.Helpers;
 using UserManager.WebApi.Infrastructure.Models;
 using UserManager.WebApi.Interfaces.Infrastructure;
 using UserManager.WebApi.Models.Dtos;
@@ -77,7 +78,7 @@ namespace UserManager.WebApi.Infrastructure.Repositories
             dbUser = new User();
 
             dbUser.Username = user.Username;
-            dbUser.Password = user.Password;
+            dbUser.Password = EncryptionHelper.EncryptBase64(user.Password);
             dbUser.Email = user.Email;
             dbUser.RegisteredDate = DateTime.UtcNow;
 
