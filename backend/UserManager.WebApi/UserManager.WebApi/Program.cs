@@ -53,7 +53,7 @@ app.UseHttpsRedirection();
 string[] corsOrigins = { "localhost:4200" };
 app.UseCors(proxy => proxy.WithOrigins(corsOrigins).AllowAnyMethod());
 
-//app.UseAuthentication();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
