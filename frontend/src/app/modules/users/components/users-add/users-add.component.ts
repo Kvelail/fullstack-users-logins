@@ -18,9 +18,6 @@ import { ConstantString } from '../../state/enums/constant-string.enum';
 // services
 import { UsersService } from '../../state/services/users-service/users.service';
 
-// store
-import { UsersStore } from '../../state/store/users.store';
-
 @Component({
     selector: 'app-users-add',
     templateUrl: './users-add.component.html',
@@ -35,8 +32,7 @@ export class UsersAddComponent implements OnInit, OnDestroy {
 
     constructor(
         private formBuilder: FormBuilder,
-        private usersService: UsersService,
-        private usersStore: UsersStore
+        private usersService: UsersService
     ) {}
 
     ngOnInit(): void {
@@ -67,7 +63,7 @@ export class UsersAddComponent implements OnInit, OnDestroy {
 
         // create new user
         const addUserFormValue = addUserForm.value;
-        const formatedDate = format(new Date(), 'MM/dd/yyyy');
+        const formatedDate = format(new Date(), ConstantString.DATE_FORMAT);
         const newUser = {
             username: addUserFormValue.username,
             email: addUserFormValue.email,

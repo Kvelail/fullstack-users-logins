@@ -107,7 +107,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
             .pipe(takeUntil(this.destroy$))
             .subscribe((users: User[]) => {
                 if (users) {
-                    /* 10 users per page in pagination */
+                    /*  calculate numbers in pagination based on users list - 10 users per page */
                     this.numberOfPaginationArray = Array(
                         Math.ceil(this.usersCount / 10)
                     )

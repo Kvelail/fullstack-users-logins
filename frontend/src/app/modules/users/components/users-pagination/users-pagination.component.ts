@@ -13,7 +13,8 @@ export class UsersPaginationComponent {
 
     @Output() paginationNumberEmitter = new EventEmitter<number>();
 
-    public trackByIdentity = (index: number, _: any): number => index;
+    public trackByIdentity = (_: number, item: PaginationModel): number =>
+        item.number;
 
     public handlePaginationNumberClick(paginationNumber: number): void {
         this.paginationNumberEmitter.emit(paginationNumber);

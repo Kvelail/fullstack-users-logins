@@ -9,7 +9,7 @@
         matSort
         [dataSource]="loginsListTableData"
     >
-        <!-- Name Column -->
+        <!-- Username Column -->
         <ng-container matColumnDef="username">
             <th *matHeaderCellDef mat-header-cell mat-sort-header>Username</th>
             <td class="username-cell" mat-cell *matCellDef="let element">
@@ -17,7 +17,7 @@
             </td>
         </ng-container>
 
-        <!-- Email Column -->
+        <!-- Login passed Column -->
         <ng-container matColumnDef="login passed">
             <th *matHeaderCellDef mat-header-cell mat-sort-header>
                 Login Passed
@@ -47,7 +47,7 @@
             </td>
         </ng-container>
 
-        <!-- Crested At Column -->
+        <!-- Attempt date Column -->
         <ng-container matColumnDef="attempt date">
             <th *matHeaderCellDef mat-header-cell mat-sort-header>
                 Attempt Date

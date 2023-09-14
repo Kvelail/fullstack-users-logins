@@ -55,7 +55,7 @@ export class LoginsListComponent implements OnInit, OnDestroy {
     public getSearchFilterValue(): void {
         this.searchFilterService.getSearchFilterValue$
             .pipe(takeUntil(this.destroy$))
-            .subscribe((value) => {
+            .subscribe((value: string) => {
                 const valueToLowerCase = value.toLowerCase();
 
                 const filteredUsersListData = this.loginsList.filter((user) => {

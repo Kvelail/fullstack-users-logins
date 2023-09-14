@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { tap } from 'rxjs/operators';
 import { format } from 'date-fns';
 
 // store
+import { PersistState } from '@datorama/akita';
 import { UsersStore } from './../../store/users.store';
 import { UsersQuery } from '../../store/users.query';
 
@@ -34,6 +35,7 @@ export class UsersService {
     };
 
     constructor(
+        @Inject('persistStorage') private persistStorage: PersistState,
         private http: HttpClient,
         private usersStore: UsersStore,
         private usersQuery: UsersQuery,
@@ -177,6 +179,13 @@ export class UsersService {
             );
 
         return response;
+    }
+
+    // logout user
+    public logoutUser(): void {
+        this.persistStorage.clearStore();
+
+        this.router.navigate([RouteString.LOGIN]);
     }
 
     // get token
