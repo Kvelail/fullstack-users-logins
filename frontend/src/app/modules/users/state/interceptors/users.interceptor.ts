@@ -8,17 +8,15 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-// store
-import { UsersQuery } from '../store/users.query';
+// services
+import { UsersService } from '../services/users-service/users.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     private token: string = '';
 
-    constructor(private usersQuery: UsersQuery) {
-        this.usersQuery.usersToken$.subscribe((userToken) => {
-            this.token = userToken;
-        });
+    constructor(private usersService: UsersService) {
+        this.token = this.usersService.getToken();
     }
 
     intercept(

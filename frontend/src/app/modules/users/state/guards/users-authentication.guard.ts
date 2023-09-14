@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-// store
-import { UsersQuery } from '../store/users.query';
+// services
+import { UsersService } from '../services/users-service/users.service';
 
 @Injectable({ providedIn: 'root' })
 export class UsersAuthenticationGuard {
-    constructor(private router: Router, private usersQuery: UsersQuery) {}
+    constructor(private router: Router, private usersService: UsersService) {}
 
     canActivate() {
-        let token: string = '';
-
-        this.usersQuery.usersToken$.subscribe((userToken) => {
-            token = userToken;
-        });
+        const token = this.usersService.getToken();
 
         if (token) {
             return true;

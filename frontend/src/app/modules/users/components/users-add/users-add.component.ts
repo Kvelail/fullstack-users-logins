@@ -16,7 +16,7 @@ import {
 import { ConstantString } from '../../state/enums/constant-string.enum';
 
 // services
-import { UsersService } from '../../state/services/users.service';
+import { UsersService } from '../../state/services/users-service/users.service';
 
 // store
 import { UsersStore } from '../../state/store/users.store';
@@ -80,14 +80,6 @@ export class UsersAddComponent implements OnInit, OnDestroy {
             .createUser(newUser)
             .pipe(takeUntil(this.destroy$))
             .subscribe();
-
-        // update store
-        this.usersStore.update((store) => {
-            return {
-                ...store,
-                usersCount: store['usersCount'] + 1,
-            };
-        });
 
         // reset form
         addUserForm.reset();

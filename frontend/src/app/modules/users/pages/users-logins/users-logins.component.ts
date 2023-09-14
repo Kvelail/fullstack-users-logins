@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
 // services
-import { UsersService } from '../../state/services/users.service';
+import { UsersService } from '../../state/services/users-service/users.service';
 
 @Component({
     selector: 'app-users-logins',

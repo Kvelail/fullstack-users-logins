@@ -14,7 +14,7 @@ import { ConstantString } from '../../state/enums/constant-string.enum';
 import { ValidationMessage } from '../../state/enums/validation-message.enum';
 
 // services
-import { UsersService } from '../../state/services/users.service';
+import { UsersService } from '../../state/services/users-service/users.service';
 
 @Component({
     selector: 'app-user-login',

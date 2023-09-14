@@ -9,23 +9,30 @@ import { tap } from 'rxjs/operators';
 import { format } from 'date-fns';
 
 // store
-import { UsersStore } from './../store/users.store';
-import { UsersQuery } from '../store/users.query';
+import { UsersStore } from './../../store/users.store';
+import { UsersQuery } from '../../store/users.query';
 
 // enums
-import { RouteString } from '../enums/route-string.enum';
+import { RouteString } from '../../enums/route-string.enum';
 
 // models
-import { UserDTO } from '../models/dto/userDTO.model';
-import { CreateUserDTO } from '../models/dto/create-userDTO.model';
-import { LoginsDTO } from '../models/dto/loginsDTO.model';
-import { LoginData } from '../models/login-data.model';
-import { AuthToken } from '../models/token.model';
+import { UserDTO } from '../../models/dto/userDTO.model';
+import { CreateUserDTO } from '../../models/dto/create-userDTO.model';
+import { LoginsDTO } from '../../models/dto/loginsDTO.model';
+import { LoginData } from '../../models/login-data.model';
+import { AuthToken } from '../../models/token.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UsersService {
+    // http options
+    private httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+        }),
+    };
+
     constructor(
         private http: HttpClient,
         private usersStore: UsersStore,
@@ -125,12 +132,6 @@ export class UsersService {
 
     // create new user
     public createUser(user: CreateUserDTO): Observable<CreateUserDTO> {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        };
-
         // filter user
         const filteredUser = {
             username: user.username,
@@ -139,7 +140,7 @@ export class UsersService {
         };
 
         const response = this.http
-            .post<CreateUserDTO>('/api/user', filteredUser, httpOptions)
+            .post<CreateUserDTO>('/api/user', filteredUser, this.httpOptions)
             .pipe(
                 tap(() => {
                     // update store
@@ -147,6 +148,7 @@ export class UsersService {
                         return {
                             ...store,
                             users: [...store['users'], user],
+                            usersCount: store['usersCount'] + 1,
                         };
                     });
                 })
@@ -157,14 +159,8 @@ export class UsersService {
 
     // login user
     public loginUser(loginData: LoginData): Observable<AuthToken> {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        };
-
         const response = this.http
-            .post<AuthToken>('/api/user/validate', loginData, httpOptions)
+            .post<AuthToken>('/api/user/validate', loginData, this.httpOptions)
             .pipe(
                 tap((token) => {
                     // update store
@@ -184,10 +180,10 @@ export class UsersService {
     }
 
     // get token
-    private getToken(): string {
+    public getToken(): string {
         let token = '';
 
-        this.usersQuery.usersToken$.subscribe((userToken) => {
+        this.usersQuery.usersToken$.subscribe((userToken: string) => {
             token = userToken;
         });
 

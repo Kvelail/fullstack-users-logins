@@ -17,7 +17,7 @@ import { TABLE_HEADER_ITEMS } from '../../state/utils/static';
 
 // services
 import { SearchFilterService } from '../../state/services/search-filter-service/search-filter.service';
-import { UsersService } from '../../state/services/users.service';
+import { UsersService } from '../../state/services/users-service/users.service';
 
 // store
 import { UsersQuery } from './../../state/store/users.query';

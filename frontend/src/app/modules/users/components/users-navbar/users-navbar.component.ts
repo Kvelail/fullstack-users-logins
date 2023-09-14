@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+// store
+import { PersistState } from '@datorama/akita';
 
 // static
 import { NAVBAR_MENU_ITEMS } from '../../state/utils/static';
@@ -10,9 +13,6 @@ import { NavbarLink } from '../../state/models/navbar-link.model';
 // enums
 import { RouteString } from '../../state/enums/route-string.enum';
 
-// store
-import { UsersStore } from '../../state/store/users.store';
-
 @Component({
     selector: 'app-users-navbar',
     templateUrl: './users-navbar.component.html',
@@ -21,7 +21,10 @@ import { UsersStore } from '../../state/store/users.store';
 export class UsersNavbarComponent implements OnInit {
     public navbarMenuItems: NavbarLink[] = [];
 
-    constructor(public router: Router, private usersStore: UsersStore) {}
+    constructor(
+        @Inject('persistStorage') private persistStorage: PersistState,
+        public router: Router
+    ) {}
 
     ngOnInit(): void {
         this.getNavbarMenuItems();
@@ -37,13 +40,7 @@ export class UsersNavbarComponent implements OnInit {
 
     // handle logout
     public handleLogoutClick(): void {
-        // remove token from store
-        this.usersStore.update((store) => {
-            return {
-                ...store,
-                token: null,
-            };
-        });
+        this.persistStorage.clearStore();
 
         this.router.navigate([RouteString.LOGIN]);
     }
