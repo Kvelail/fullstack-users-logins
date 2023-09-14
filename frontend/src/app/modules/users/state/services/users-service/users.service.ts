@@ -76,7 +76,7 @@ export class UsersService {
                     const filteredUsers = users.map((user) => {
                         const formatedDate = format(
                             new Date(user.registeredDate),
-                            'MM/dd/yyyy'
+                            'dd/MM/yyyy'
                         );
 
                         return {
@@ -108,7 +108,7 @@ export class UsersService {
                     .map((login) => {
                         const formatedDate = format(
                             new Date(login.issuedDate),
-                            'dd.MM.yyyy HH:mm'
+                            'dd/MM/yyyy HH:mm'
                         );
 
                         return {

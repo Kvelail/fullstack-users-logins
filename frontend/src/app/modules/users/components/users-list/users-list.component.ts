@@ -122,6 +122,9 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
                     // users table
                     this.usersList = users;
                     this.usersListTableData = new MatTableDataSource(users);
+
+                    // apply sort when new user is added
+                    this.sortUsersListData();
                 }
             });
     }
@@ -139,7 +142,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
 
     // handle pagination number emit
     public handlePaginationNumberEmit(paginationNumber: number): void {
-        /* Change active pagination number */
+        /* change active pagination number */
         this.numberOfPaginationArray = this.numberOfPaginationArray.map(
             (item: PaginationModel, index: number) => {
                 if (item.isActive) {
@@ -165,6 +168,9 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
             .getPaginatedUsers(paginationNumber)
             .pipe(takeUntil(this.destroy$))
             .subscribe();
+
+        // apply sort for new pagination page
+        this.sortUsersListData();
     }
 
     ngOnDestroy(): void {

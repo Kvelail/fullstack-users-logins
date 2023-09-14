@@ -66,3 +66,15 @@ body {
     -ms-user-select: none !important;
     user-select: none !important;
 }
+
+.user-select-black {
+    &::-moz-selection {
+        color: $color-black;
+        background: rgb(66, 66, 66, 0.2);
+    }
+
+    &::selection {
+        color: $color-black;
+        background: rgb(66, 66, 66, 0.2);
+    }
+}

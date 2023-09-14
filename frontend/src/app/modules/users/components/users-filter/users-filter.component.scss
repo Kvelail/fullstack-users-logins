@@ -32,15 +32,5 @@
         font-size: 1.5rem;
         color: $color-black;
         width: 100%;
-
-        &::-moz-selection {
-            color: $color-black;
-            background: rgb(66, 66, 66, 0.2);
-        }
-
-        &::selection {
-            color: $color-black;
-            background: rgb(66, 66, 66, 0.2);
-        }
     }
 }

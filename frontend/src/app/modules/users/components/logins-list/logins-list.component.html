@@ -11,15 +11,32 @@
     >
         <!-- Username Column -->
         <ng-container matColumnDef="username">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header>Username</th>
-            <td class="username-cell" mat-cell *matCellDef="let element">
+            <th
+                class="user-select-none"
+                *matHeaderCellDef
+                mat-header-cell
+                mat-sort-header
+            >
+                Username
+            </th>
+            <td
+                class="username-cell user-select-black"
+                mat-cell
+                *matCellDef="let element"
+            >
                 {{ element.username }}
             </td>
         </ng-container>
 
         <!-- Login passed Column -->
         <ng-container matColumnDef="login passed">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <th
+                class="login-header ser-select-none"
+                *matHeaderCellDef
+                mat-header-cell
+                mat-sort-header
+                disabled="true"
+            >
                 Login Passed
             </th>
             <td class="login-cell" mat-cell *matCellDef="let element">
@@ -49,10 +66,20 @@
 
         <!-- Attempt date Column -->
         <ng-container matColumnDef="attempt date">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <th
+                class="date-header user-select-none"
+                *matHeaderCellDef
+                mat-header-cell
+                mat-sort-header
+                disabled="true"
+            >
                 Attempt Date
             </th>
-            <td class="date-cell" mat-cell *matCellDef="let element">
+            <td
+                class="date-cell user-select-black"
+                mat-cell
+                *matCellDef="let element"
+            >
                 {{ element.attemptDate }}
             </td>
         </ng-container>

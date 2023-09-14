@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Subject, takeUntil } from 'rxjs';
@@ -24,6 +30,8 @@ import { UsersService } from '../../state/services/users-service/users.service';
     styleUrls: ['./users-add.component.scss'],
 })
 export class UsersAddComponent implements OnInit, OnDestroy {
+    @ViewChild('passwordInput') public passwordInput!: ElementRef;
+
     private destroy$ = new Subject<void>();
 
     // form
@@ -78,7 +86,11 @@ export class UsersAddComponent implements OnInit, OnDestroy {
             .subscribe();
 
         // reset form
+        this.passwordInput.nativeElement.blur();
+
         addUserForm.reset();
+        addUserForm.markAsPristine();
+        addUserForm.markAsUntouched();
     }
 
     // handle button type emit

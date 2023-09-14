@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 
 import { Subject, takeUntil } from 'rxjs';
 
@@ -23,7 +29,7 @@ import { UsersQuery } from '../../state/store/users.query';
     templateUrl: './logins-list.component.html',
     styleUrls: ['./logins-list.component.scss'],
 })
-export class LoginsListComponent implements OnInit, OnDestroy {
+export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(MatSort) public sort!: MatSort;
 
     private destroy$ = new Subject<void>();
@@ -46,9 +52,20 @@ export class LoginsListComponent implements OnInit, OnDestroy {
         this.getLogins();
     }
 
+    ngAfterViewInit(): void {
+        this.sortLoginsListData();
+    }
+
     // get table header items
     private getTableHeaderItems(): void {
         this.displayedColumns = LOGINS_TABLE_HEADER_ITEMS;
+    }
+
+    // sort columns
+    public sortLoginsListData(): void {
+        setTimeout(() => {
+            this.loginsListTableData.sort = this.sort;
+        }, 100);
     }
 
     // get search filter value and filter users by value

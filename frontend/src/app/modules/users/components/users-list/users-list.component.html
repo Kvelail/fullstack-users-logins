@@ -11,24 +11,49 @@
     >
         <!-- Name Column -->
         <ng-container matColumnDef="username">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header>Username</th>
-            <td class="username-cell" mat-cell *matCellDef="let element">
+            <th
+                class="user-select-none"
+                *matHeaderCellDef
+                mat-header-cell
+                mat-sort-header
+            >
+                Username
+            </th>
+            <td
+                class="username-cell user-select-black"
+                mat-cell
+                *matCellDef="let element"
+            >
                 {{ element.username }}
             </td>
         </ng-container>
 
         <!-- Email Column -->
         <ng-container matColumnDef="email">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header>Email</th>
-            <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+            <th
+                class="user-select-none"
+                *matHeaderCellDef
+                mat-header-cell
+                mat-sort-header
+            >
+                Email
+            </th>
+            <td class="user-select-black" mat-cell *matCellDef="let element">
+                {{ element.email }}
+            </td>
         </ng-container>
 
         <!-- Crested At Column -->
         <ng-container matColumnDef="registeredDate">
-            <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <th
+                class="user-select-none"
+                *matHeaderCellDef
+                mat-header-cell
+                mat-sort-header
+            >
                 Created At
             </th>
-            <td mat-cell *matCellDef="let element">
+            <td class="user-select-black" mat-cell *matCellDef="let element">
                 {{ element.registeredDate }}
             </td>
         </ng-container>

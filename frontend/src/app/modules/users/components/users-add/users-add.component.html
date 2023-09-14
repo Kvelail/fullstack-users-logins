@@ -9,8 +9,9 @@
         <form [formGroup]="addUserForm" (keydown)="onKeyDown($event)">
             <!-- Username input -->
             <mat-form-field>
-                <mat-label>Username</mat-label>
+                <mat-label class="user-select-none">Username</mat-label>
                 <input
+                    class="user-select-black"
                     formControlName="username"
                     matInput
                     placeholder="Username"
@@ -21,9 +22,10 @@
 
             <!-- Email input -->
             <mat-form-field class="email-input">
-                <mat-label>Email</mat-label>
+                <mat-label class="user-select-none">Email</mat-label>
 
                 <input
+                    class="user-select-black"
                     formControlName="email"
                     matInput
                     placeholder="email@example.com"
@@ -34,15 +36,18 @@
 
             <!-- Password input -->
             <mat-form-field>
-                <mat-label>Password</mat-label>
+                <mat-label class="user-select-none">Password</mat-label>
 
                 <input
+                    class="user-select-black"
                     formControlName="password"
+                    #passwordInput
                     matInput
                     [type]="hidePassword ? 'password' : 'text'"
                 />
 
                 <button
+                    type="button"
                     (click)="switchHidePassword()"
                     [attr.aria-pressed]="hidePassword"
                     [attr.aria-label]="'Hide password'"
