@@ -13,24 +13,22 @@ import { UsersService } from '../services/users-service/users.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    private token: string = '';
-
-    constructor(private usersService: UsersService) {
-        this.token = this.usersService.getToken();
-    }
+    constructor(private usersService: UsersService) {}
 
     intercept(
-        req: HttpRequest<any>,
+        request: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        req = req.clone({
+        const accessToken = this.usersService.getAccessToken();
+
+        request = request.clone({
             setHeaders: {
                 'Content-Type': 'application/json; charset=utf-8',
                 Accept: 'application/json',
-                Authorization: `Bearer ${this.token}`,
+                Authorization: `Bearer ${accessToken}`,
             },
         });
 
-        return next.handle(req);
+        return next.handle(request);
     }
 }

@@ -9,7 +9,7 @@ export class UsersAuthenticationGuard {
     constructor(private router: Router, private usersService: UsersService) {}
 
     canActivate() {
-        const token = this.usersService.getToken();
+        const token = this.usersService.getAccessToken();
 
         if (token) {
             return true;

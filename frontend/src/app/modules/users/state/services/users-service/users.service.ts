@@ -188,14 +188,14 @@ export class UsersService {
         this.router.navigate([RouteString.LOGIN]);
     }
 
-    // get token
-    public getToken(): string {
-        let token = '';
+    // get access token
+    public getAccessToken(): string {
+        let accessToken = '';
 
         this.usersQuery.usersToken$.subscribe((userToken: string) => {
-            token = userToken;
+            accessToken = userToken;
         });
 
-        return token;
+        return accessToken;
     }
 }
