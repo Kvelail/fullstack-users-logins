@@ -15,13 +15,13 @@ namespace UserManager.WebApi.Infrastructure.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<WebApi.Models.Dtos.UserDTO>> GetAllUsersAsync()
+        public async Task<List<UserDTO>> GetAllUsersAsync()
         {
             var dbUsers = _context.Users;
 
             return await
                 dbUsers
-                    .Select(u => new WebApi.Models.Dtos.UserDTO
+                    .Select(u => new UserDTO
                     {
                         Username = u.Username,
                         Password = u.Password,
@@ -31,7 +31,7 @@ namespace UserManager.WebApi.Infrastructure.Repositories
                     .ToListAsync();
         }
 
-        public async Task<List<WebApi.Models.Dtos.UserDTO>> GetFilteredUsersAsync(int firstNRecordsToSkip, int nextNRecordsToTake)
+        public async Task<List<UserDTO>> GetFilteredUsersAsync(int firstNRecordsToSkip, int nextNRecordsToTake)
         {
             var dbUsers =
                 _context.Users
@@ -41,7 +41,7 @@ namespace UserManager.WebApi.Infrastructure.Repositories
 
             return await
                 dbUsers
-                    .Select(u => new WebApi.Models.Dtos.UserDTO
+                    .Select(u => new UserDTO
                     {
                         Username = u.Username,
                         Password = u.Password,
@@ -51,7 +51,7 @@ namespace UserManager.WebApi.Infrastructure.Repositories
                     .ToListAsync();
         }
 
-        public async Task<WebApi.Models.Dtos.UserDTO?> GetUserByEmailAsync(string email)
+        public async Task<UserDTO?> GetUserByEmailAsync(string email)
         {
             var dbUser = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
 
@@ -68,7 +68,7 @@ namespace UserManager.WebApi.Infrastructure.Repositories
             };
         }
 
-        public async Task<bool> CreateNewUserAsync(WebApi.Models.Dtos.UserDTO user)
+        public async Task<bool> CreateNewUserAsync(UserDTO user)
         {
             var dbUser = _context.Users.SingleOrDefault(u => u.Username == user.Username || u.Email == user.Email);
 

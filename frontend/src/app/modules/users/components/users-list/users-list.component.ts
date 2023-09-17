@@ -44,6 +44,8 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     // pagination
     public numberOfPaginationArray: PaginationModel[] = [];
     public usersCount: number = 0;
+    private doCalculate: boolean = true;
+    private isFirstLoad: boolean = true;
 
     constructor(
         private searchFilterService: SearchFilterService,
@@ -107,44 +109,47 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
             .pipe(takeUntil(this.destroy$))
             .subscribe((users: User[]) => {
                 if (users) {
-                    /*  calculate numbers in pagination based on users list - 10 users per page */
-                    this.numberOfPaginationArray = Array(
-                        Math.ceil(this.usersCount / 10)
-                    )
-                        .fill(0)
-                        .map((_, i) => {
-                            return {
-                                number: i + 1,
-                                isActive: i === 0 ? true : false,
-                            };
-                        });
-
                     // users table
                     this.usersList = users;
                     this.usersListTableData = new MatTableDataSource(users);
 
                     // apply sort when new user is added
                     this.sortUsersListData();
+
+                    // calculate numbers in pagination based on users list - 10 users per page
+                    if (this.doCalculate) {
+                        this.calculatePaginationNumbers();
+
+                        // reset
+                        this.doCalculate = false;
+                        this.isFirstLoad = false;
+                    }
                 }
             });
     }
 
-    // get users count
-    public getUsersCount(): void {
-        this.usersQuery.usersCount$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((usersCount: number) => {
-                if (usersCount) {
-                    this.usersCount = usersCount;
-                }
+    // calculate pagination numbers
+    private calculatePaginationNumbers(): void {
+        this.numberOfPaginationArray = Array(Math.ceil(this.usersCount / 10))
+            .fill(0)
+            .map((_, index) => {
+                return {
+                    number: index + 1,
+                    isActive:
+                        this.isFirstLoad && index === 0
+                            ? true
+                            : !this.isFirstLoad &&
+                              index === this.numberOfPaginationArray.length - 1
+                            ? true
+                            : false,
+                };
             });
     }
 
-    // handle pagination number emit
-    public handlePaginationNumberEmit(paginationNumber: number): void {
-        /* change active pagination number */
+    // change active pagination number
+    private changeActivePaginationNumber(paginationNumber: number): void {
         this.numberOfPaginationArray = this.numberOfPaginationArray.map(
-            (item: PaginationModel, index: number) => {
+            (item: PaginationModel, index) => {
                 if (item.isActive) {
                     return {
                         ...item,
@@ -162,15 +167,35 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
                 return item;
             }
         );
+    }
+
+    // get users count
+    public getUsersCount(): void {
+        this.usersQuery.usersCount$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((usersCount: number) => {
+                if (usersCount) {
+                    this.usersCount = usersCount;
+
+                    // calculate numbers in pagination if number of users is divisible by 10
+                    const isDivisibleWithTen = (this.usersCount - 1) % 10 === 0;
+
+                    if (isDivisibleWithTen) {
+                        this.doCalculate = true;
+                    }
+                }
+            });
+    }
+
+    // handle pagination number emit
+    public handlePaginationNumberEmit(paginationNumber: number): void {
+        this.changeActivePaginationNumber(paginationNumber);
 
         // get paginated users list
         this.usersService
             .getPaginatedUsers(paginationNumber)
             .pipe(takeUntil(this.destroy$))
             .subscribe();
-
-        // apply sort for new pagination page
-        this.sortUsersListData();
     }
 
     ngOnDestroy(): void {

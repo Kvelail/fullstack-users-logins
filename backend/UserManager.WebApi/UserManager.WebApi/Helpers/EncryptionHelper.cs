@@ -11,7 +11,7 @@
 
         public static string DecryptBase64(string text)
         {
-            var base64EncodedBytes = System.Convert.FromBase64String(text);
+            var base64EncodedBytes = Convert.FromBase64String(text);
 
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }

@@ -4,7 +4,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 1rem;
+    flex-wrap: wrap;
+    margin: 1rem auto 0 auto;
+    max-width: 500px;
 
     &-button {
         min-width: 3rem;
@@ -12,6 +14,7 @@
         padding: unset;
         font-size: 1.5rem;
         margin-right: 1rem;
+        margin-bottom: 1rem;
         transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
 
         &.active,

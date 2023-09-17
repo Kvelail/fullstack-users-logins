@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserManager.WebApi.Interfaces.Services;
-using UserManager.WebApi.Models;
 using UserManager.WebApi.Models.Dtos;
 
 namespace UserManager.WebApi.Controllers

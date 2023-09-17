@@ -63,7 +63,9 @@
     </table>
 
     <!-- Pagination -->
+    <!-- Display pagination if more then 10 users in list -->
     <app-users-pagination
+        *ngIf="usersCount > 10"
         [numberOfPaginationArray]="numberOfPaginationArray"
         (paginationNumberEmitter)="handlePaginationNumberEmit($event)"
     ></app-users-pagination>

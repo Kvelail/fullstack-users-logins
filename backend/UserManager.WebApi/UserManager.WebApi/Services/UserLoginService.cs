@@ -60,6 +60,7 @@ namespace UserManager.WebApi.Services
             userLoginAttempt.LoginAttemptType.Id = 1;
             await _userLoginRepository.InsertUserLoginAttempt(userLoginAttempt);
 
+            // auth token
             string authIssuer = _configuration["Authentication:Issuer"];
             string authKey = _configuration["Authentication:Key"];
             int authExpiresAfterHours = Int32.Parse(_configuration["Authentication:ExpiresAfterHours"]);

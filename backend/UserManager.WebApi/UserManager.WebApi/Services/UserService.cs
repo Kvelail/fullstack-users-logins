@@ -18,7 +18,7 @@ namespace UserManager.WebApi.Services
             return await _userRepository.GetAllUsersAsync();
         }
 
-        public async Task<List<WebApi.Models.Dtos.UserDTO>> GetPaginatedUsersAsync(int paginationNumber, int countNumber)
+        public async Task<List<UserDTO>> GetPaginatedUsersAsync(int paginationNumber, int countNumber)
         {
             int nextNRecordsToTake = countNumber;
             int firstNRecordsToSkip = (paginationNumber * countNumber) - countNumber;

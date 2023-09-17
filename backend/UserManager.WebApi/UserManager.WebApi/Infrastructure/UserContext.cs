@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using UserManager.WebApi.Helpers;
 using UserManager.WebApi.Infrastructure.Models;
 
@@ -8,11 +6,6 @@ namespace UserManager.WebApi.Infrastructure
 {
     public class UserContext : DbContext
     {
-        public UserContext()
-        {
-
-        }
-
         public UserContext(DbContextOptions<UserContext> dbContextOptions) : base(dbContextOptions)
         {
         }

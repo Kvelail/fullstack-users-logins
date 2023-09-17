@@ -20,16 +20,16 @@ namespace UserManager.WebApi.Infrastructure.Repositories
                 _context.UserLoginAttempts
                 .Include(ula => ula.User);
 
-            return await dbUserLoginAttemps.Select(ula => new WebApi.Models.Dtos.UserLoginAttemptDTO
+            return await dbUserLoginAttemps.Select(ula => new UserLoginAttemptDTO
             {
-                User = new WebApi.Models.Dtos.UserDTO
+                User = new UserDTO
                 {
                     Username = ula.User.Username,
                     Password = ula.User.Password,
                     Email = ula.User.Email,
                     RegisteredDate = ula.User.RegisteredDate
                 },
-                LoginAttemptType = new WebApi.Models.Dtos.LoginAttemptTypeDTO
+                LoginAttemptType = new LoginAttemptTypeDTO
                 {
                     Code = ula.LoginAttemptType.Code,
                     Description = ula.LoginAttemptType.Description
