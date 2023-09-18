@@ -87,4 +87,12 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+
+    <!-- Pagination -->
+    <!-- Display pagination if more then 10 logins in list -->
+    <app-users-pagination
+        *ngIf="loginsCount > 10"
+        [numberOfPaginationArray]="numberOfPaginationArray"
+        (paginationNumberEmitter)="handlePaginationNumberEmit($event)"
+    ></app-users-pagination>
 </div>

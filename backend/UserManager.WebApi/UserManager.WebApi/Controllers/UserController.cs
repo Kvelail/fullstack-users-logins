@@ -72,14 +72,14 @@ namespace UserManager.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/users/logins")]
-        public async Task<IActionResult> GetUsersLoginAttempts()
+        [Route("api/users/logins/paginated")]
+        public async Task<IActionResult> GetPaginatedLogins(int paginationNumber, int countNumber)
         {
             try
             {
-                var usersLoginAttemps = await _userLoginService.GetAllUserLoginAttemptsAsync();
+                var logins = await _userLoginService.GetPaginatedUserLoginAttemptsAsync(paginationNumber, countNumber);
 
-                return Ok(usersLoginAttemps);
+                return Ok(logins);
             }
             catch (Exception ex)
             {

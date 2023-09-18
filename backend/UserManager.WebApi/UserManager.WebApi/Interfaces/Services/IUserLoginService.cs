@@ -5,7 +5,7 @@ namespace UserManager.WebApi.Interfaces.Services
 {
     public interface IUserLoginService
     {
-        Task<List<UserLoginAttemptDTO>> GetAllUserLoginAttemptsAsync();
+        Task<LoginsWrapperDTO> GetPaginatedUserLoginAttemptsAsync(int paginationNumber, int countNumber);
         Task<AuthResponse> ValidateUserAsync(string email, string password);
     }
 }

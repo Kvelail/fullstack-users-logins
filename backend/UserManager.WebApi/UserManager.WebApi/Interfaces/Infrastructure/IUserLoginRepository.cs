@@ -4,7 +4,7 @@ namespace UserManager.WebApi.Interfaces.Infrastructure
 {
     public interface IUserLoginRepository
     {
-        Task<List<UserLoginAttemptDTO>> GetAllUserLoginAttemptsAsync();
+        Task<LoginsWrapperDTO> GetFilteredLoginsAsync(int firstNRecordsToSkip, int nextNRecordsToTake);
         Task InsertUserLoginAttempt(UserLoginAttemptDTO userLoginAttempt);
     }
 }

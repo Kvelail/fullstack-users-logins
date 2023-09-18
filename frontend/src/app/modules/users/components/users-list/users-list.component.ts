@@ -103,7 +103,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
             });
     }
 
-    // get all users - from store
+    // get users - from store
     public getUsers(): void {
         this.usersQuery.users$
             .pipe(takeUntil(this.destroy$))
@@ -121,8 +121,8 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
                         this.calculatePaginationNumbers();
 
                         // reset
+                        if (this.isFirstLoad) this.isFirstLoad = false;
                         this.doCalculate = false;
-                        this.isFirstLoad = false;
                     }
                 }
             });

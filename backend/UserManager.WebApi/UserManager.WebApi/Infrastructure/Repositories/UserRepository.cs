@@ -28,7 +28,6 @@ namespace UserManager.WebApi.Infrastructure.Repositories
                     .Select(u => new UserDTO
                     {
                         Username = u.Username,
-                        Password = u.Password,
                         Email = u.Email,
                         RegisteredDate = u.RegisteredDate,
                     })

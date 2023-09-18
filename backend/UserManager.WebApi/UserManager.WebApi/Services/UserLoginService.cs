@@ -25,9 +25,12 @@ namespace UserManager.WebApi.Services
             _configuration = configuration;
         }
 
-        public async Task<List<UserLoginAttemptDTO>> GetAllUserLoginAttemptsAsync()
+        public async Task<LoginsWrapperDTO> GetPaginatedUserLoginAttemptsAsync(int paginationNumber, int countNumber)
         {
-            return await _userLoginRepository.GetAllUserLoginAttemptsAsync();
+            int nextNRecordsToTake = countNumber;
+            int firstNRecordsToSkip = (paginationNumber * countNumber) - countNumber;
+
+            return await _userLoginRepository.GetFilteredLoginsAsync(firstNRecordsToSkip, nextNRecordsToTake);
         }
 
         public async Task<AuthResponse> ValidateUserAsync(string email, string password)
@@ -60,7 +63,7 @@ namespace UserManager.WebApi.Services
             userLoginAttempt.LoginAttemptType.Id = 1;
             await _userLoginRepository.InsertUserLoginAttempt(userLoginAttempt);
 
-            // auth token
+            // auth access token
             string authIssuer = _configuration["Authentication:Issuer"];
             string authKey = _configuration["Authentication:Key"];
             int authExpiresAfterHours = Int32.Parse(_configuration["Authentication:ExpiresAfterHours"]);

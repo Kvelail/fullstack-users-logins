@@ -22,6 +22,7 @@ import { LoginsDTO } from '../../models/dto/loginsDTO.model';
 import { LoginData } from '../../models/login-data.model';
 import { AuthToken } from '../../models/token.model';
 import { UsersWrapperDTO } from '../../models/dto/users-wrapperDTO';
+import { LoginsWrapperDTO } from '../../models/dto/logins-wrapperDTO';
 
 @Injectable({
     providedIn: 'root',
@@ -83,13 +84,21 @@ export class UsersService {
         return response;
     }
 
-    // get all logins
-    public getAllLogins(): Observable<LoginsDTO[]> {
-        const response = this.http.get<LoginsDTO[]>('/api/users/logins').pipe(
-            tap((logins) => {
-                // filter logins array
-                const filteredLogins = logins
-                    .map((login) => {
+    // get paginated logins
+    public getPaginatedLogins(
+        paginationNumber: number = 1
+    ): Observable<LoginsWrapperDTO> {
+        // users per page
+        const countNumber = 10;
+
+        const response = this.http
+            .get<LoginsWrapperDTO>(
+                `/api/users/logins/paginated?paginationNumber=${paginationNumber}&countNumber=${countNumber}`
+            )
+            .pipe(
+                tap((logins) => {
+                    // filter logins array
+                    const filteredLogins = logins.logins.map((login) => {
                         const formatedDate = format(
                             new Date(login.issuedDate),
                             'dd/MM/yyyy HH:mm'
@@ -100,18 +109,19 @@ export class UsersService {
                             loginPassed: login.loginAttemptType.code,
                             attemptDate: formatedDate,
                         };
-                    })
-                    .reverse();
+                    }); /* 
+                        .reverse(); */
 
-                // update store
-                this.usersStore.update((store) => {
-                    return {
-                        ...store,
-                        logins: filteredLogins,
-                    };
-                });
-            })
-        );
+                    // update store
+                    this.usersStore.update((store) => {
+                        return {
+                            ...store,
+                            logins: filteredLogins,
+                            loginsCount: logins.loginsCount,
+                        };
+                    });
+                })
+            );
 
         return response;
     }

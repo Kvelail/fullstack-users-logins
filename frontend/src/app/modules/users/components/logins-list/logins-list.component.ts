@@ -15,14 +15,16 @@ import { MatSort } from '@angular/material/sort';
 // static
 import { LOGINS_TABLE_HEADER_ITEMS } from '../../state/utils/static';
 
-// models
-import { Login } from '../../state/models/login.model';
-
 // services
 import { SearchFilterService } from '../../state/services/search-filter-service/search-filter.service';
+import { UsersService } from '../../state/services/users-service/users.service';
 
 // store
 import { UsersQuery } from '../../state/store/users.query';
+
+// models
+import { Login } from '../../state/models/login.model';
+import { PaginationModel } from '../../state/models/pagination.model';
 
 @Component({
     selector: 'app-logins-list',
@@ -39,8 +41,14 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
     public loginsListTableData = new MatTableDataSource<Login>([]);
     public displayedColumns: string[] = [];
 
+    // pagination
+    public numberOfPaginationArray: PaginationModel[] = [];
+    public loginsCount: number = 0;
+    private isFirstLoad: boolean = true;
+
     constructor(
         private searchFilterService: SearchFilterService,
+        private usersService: UsersService,
         private usersQuery: UsersQuery
     ) {}
 
@@ -48,6 +56,8 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
         this.getTableHeaderItems();
 
         this.getSearchFilterValue();
+
+        this.getLoginsCount();
 
         this.getLogins();
     }
@@ -95,10 +105,79 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
             .pipe(takeUntil(this.destroy$))
             .subscribe((logins: Login[]) => {
                 if (logins) {
+                    // logins table
                     this.loginsList = logins;
                     this.loginsListTableData = new MatTableDataSource(logins);
+
+                    // calculate numbers in pagination only on first load - 10 logins per page
+                    if (this.isFirstLoad) {
+                        this.calculatePaginationNumbers();
+
+                        // reset
+                        this.isFirstLoad = false;
+                    }
                 }
             });
+    }
+
+    // calculate pagination numbers
+    private calculatePaginationNumbers(): void {
+        this.numberOfPaginationArray = Array(Math.ceil(this.loginsCount / 10))
+            .fill(0)
+            .map((_, index) => {
+                return {
+                    number: index + 1,
+                    isActive: index === 0 ? true : false,
+                };
+            });
+    }
+
+    // change active pagination number
+    private changeActivePaginationNumber(paginationNumber: number): void {
+        this.numberOfPaginationArray = this.numberOfPaginationArray.map(
+            (item: PaginationModel, index) => {
+                if (item.isActive) {
+                    return {
+                        ...item,
+                        isActive: false,
+                    };
+                }
+
+                if (index === paginationNumber - 1) {
+                    return {
+                        ...item,
+                        isActive: true,
+                    };
+                }
+
+                return item;
+            }
+        );
+    }
+
+    // get logins count
+    public getLoginsCount(): void {
+        this.usersQuery.loginsCount$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((loginsCount: number) => {
+                if (loginsCount) {
+                    this.loginsCount = loginsCount;
+                }
+            });
+    }
+
+    // handle pagination number emit
+    public handlePaginationNumberEmit(paginationNumber: number): void {
+        this.changeActivePaginationNumber(paginationNumber);
+
+        // get paginated logins list
+        this.usersService
+            .getPaginatedLogins(paginationNumber)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe();
+
+        // apply sort when page changed
+        this.sortLoginsListData();
     }
 
     ngOnDestroy(): void {

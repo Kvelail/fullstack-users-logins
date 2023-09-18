@@ -11,6 +11,7 @@ export const initialState = (): UsersState => {
         users: null,
         logins: null,
         usersCount: null,
+        loginsCount: null,
         token: null,
     };
 };
