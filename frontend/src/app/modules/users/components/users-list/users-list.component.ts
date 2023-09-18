@@ -44,7 +44,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     // pagination
     public numberOfPaginationArray: PaginationModel[] = [];
     public usersCount: number = 0;
-    private doCalculate: boolean = true;
+    private doCalculate: boolean = false;
     private isFirstLoad: boolean = true;
 
     constructor(
@@ -73,14 +73,14 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     // sort columns
-    public sortUsersListData(): void {
+    private sortUsersListData(): void {
         setTimeout(() => {
             this.usersListTableData.sort = this.sort;
         }, 100);
     }
 
     // get search filter value and filter users by value
-    public getSearchFilterValue(): void {
+    private getSearchFilterValue(): void {
         this.searchFilterService.getSearchFilterValue$
             .pipe(takeUntil(this.destroy$))
             .subscribe((value) => {
@@ -104,26 +104,52 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     // get users - from store
-    public getUsers(): void {
+    private getUsers(): void {
         this.usersQuery.users$
             .pipe(takeUntil(this.destroy$))
             .subscribe((users: User[]) => {
                 if (users) {
-                    // users table
-                    this.usersList = users;
-                    this.usersListTableData = new MatTableDataSource(users);
-
-                    // apply sort when new user is added
-                    this.sortUsersListData();
-
-                    // calculate numbers in pagination based on users list - 10 users per page
+                    // calculate numbers in pagination based on users list length
                     if (this.doCalculate) {
                         this.calculatePaginationNumbers();
 
                         // reset
-                        if (this.isFirstLoad) this.isFirstLoad = false;
+                        if (this.isFirstLoad) {
+                            this.isFirstLoad = false;
+                        } else {
+                            this.getLastPageUsers();
+                        }
+
                         this.doCalculate = false;
+                    } else {
+                        // users table
+                        this.usersList = users;
+                        this.usersListTableData = new MatTableDataSource(users);
+
+                        // apply sort when new user is added
+                        this.sortUsersListData();
                     }
+                }
+            });
+    }
+
+    // get last page users list
+    private getLastPageUsers(): void {
+        this.usersService
+            .getPaginatedUsers(this.numberOfPaginationArray.length)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe();
+    }
+
+    // get users count
+    private getUsersCount(): void {
+        this.usersQuery.usersCount$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((usersCount: number) => {
+                if (usersCount) {
+                    this.usersCount = usersCount;
+
+                    this.doCalculate = true;
                 }
             });
     }
@@ -167,24 +193,6 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
                 return item;
             }
         );
-    }
-
-    // get users count
-    public getUsersCount(): void {
-        this.usersQuery.usersCount$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((usersCount: number) => {
-                if (usersCount) {
-                    this.usersCount = usersCount;
-
-                    // calculate numbers in pagination if number of users is divisible by 10
-                    const isDivisibleWithTen = (this.usersCount - 1) % 10 === 0;
-
-                    if (isDivisibleWithTen) {
-                        this.doCalculate = true;
-                    }
-                }
-            });
     }
 
     // handle pagination number emit

@@ -72,14 +72,14 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     // sort columns
-    public sortLoginsListData(): void {
+    private sortLoginsListData(): void {
         setTimeout(() => {
             this.loginsListTableData.sort = this.sort;
         }, 100);
     }
 
     // get search filter value and filter users by value
-    public getSearchFilterValue(): void {
+    private getSearchFilterValue(): void {
         this.searchFilterService.getSearchFilterValue$
             .pipe(takeUntil(this.destroy$))
             .subscribe((value: string) => {
@@ -100,7 +100,7 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     // get logins - from store
-    public getLogins(): void {
+    private getLogins(): void {
         this.usersQuery.logins$
             .pipe(takeUntil(this.destroy$))
             .subscribe((logins: Login[]) => {
@@ -156,7 +156,7 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     // get logins count
-    public getLoginsCount(): void {
+    private getLoginsCount(): void {
         this.usersQuery.loginsCount$
             .pipe(takeUntil(this.destroy$))
             .subscribe((loginsCount: number) => {

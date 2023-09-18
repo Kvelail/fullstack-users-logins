@@ -62,7 +62,7 @@ export class UsersAddComponent implements OnInit, OnDestroy {
     }
 
     // create user - backend communication
-    public handleAddUserClick(): void {
+    private handleAddUserClick(): void {
         const addUserForm = this.addUserForm;
 
         if (addUserForm.invalid) {

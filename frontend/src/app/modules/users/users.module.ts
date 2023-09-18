@@ -11,6 +11,9 @@ import { DateFnsModule } from 'ngx-date-fns';
 // interceptors
 import { AuthInterceptor } from './state/interceptors/users.interceptor';
 
+// directives
+import { UsersTrimInputDirective } from './state/directives/users-trim-input.directive';
+
 // material ui modules
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -35,6 +38,7 @@ import { LoginsListComponent } from './components/logins-list/logins-list.compon
 
 @NgModule({
     declarations: [
+        // components
         UserLoginComponent,
         UsersComponent,
         UsersLoginsComponent,
@@ -45,6 +49,9 @@ import { LoginsListComponent } from './components/logins-list/logins-list.compon
         UsersAddComponent,
         UsersSubmitBtnComponent,
         LoginsListComponent,
+
+        // directives
+        UsersTrimInputDirective,
     ],
     imports: [
         /* modules */

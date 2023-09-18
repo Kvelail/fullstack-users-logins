@@ -17,7 +17,8 @@ namespace UserManager.WebApi.Infrastructure.Repositories
         {
             var dbUserLoginAttemps =
                 _context.UserLoginAttempts
-                .Include(ula => ula.User);
+                .Include(ula => ula.User)
+                .OrderByDescending((item) => item.IssuedDate);
 
             var filteredDbUserLoginAttemps = dbUserLoginAttemps
                     .Skip(firstNRecordsToSkip)

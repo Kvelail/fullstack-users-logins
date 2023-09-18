@@ -18,7 +18,6 @@ import { RouteString } from '../../enums/route-string.enum';
 
 // models
 import { CreateUserDTO } from '../../models/dto/create-userDTO.model';
-import { LoginsDTO } from '../../models/dto/loginsDTO.model';
 import { LoginData } from '../../models/login-data.model';
 import { AuthToken } from '../../models/token.model';
 import { UsersWrapperDTO } from '../../models/dto/users-wrapperDTO';
@@ -109,8 +108,7 @@ export class UsersService {
                             loginPassed: login.loginAttemptType.code,
                             attemptDate: formatedDate,
                         };
-                    }); /* 
-                        .reverse(); */
+                    });
 
                     // update store
                     this.usersStore.update((store) => {
