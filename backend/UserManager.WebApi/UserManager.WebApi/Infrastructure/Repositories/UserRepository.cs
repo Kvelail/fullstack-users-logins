@@ -15,32 +15,16 @@ namespace UserManager.WebApi.Infrastructure.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<UserDTO>> GetAllUsersAsync()
+        public async Task<UsersWrapperDTO> GetFilteredUsersAsync(int firstNRecordsToSkip, int nextNRecordsToTake)
         {
             var dbUsers = _context.Users;
 
-            return await
-                dbUsers
-                    .Select(u => new UserDTO
-                    {
-                        Username = u.Username,
-                        Password = u.Password,
-                        Email = u.Email,
-                        RegisteredDate = u.RegisteredDate,
-                    })
-                    .ToListAsync();
-        }
-
-        public async Task<List<UserDTO>> GetFilteredUsersAsync(int firstNRecordsToSkip, int nextNRecordsToTake)
-        {
-            var dbUsers =
-                _context.Users
+            var filteredDbUsers = dbUsers
                     .Skip(1)
                     .Skip(firstNRecordsToSkip)
                     .Take(nextNRecordsToTake);
 
-            return await
-                dbUsers
+            var filteredUsers = await filteredDbUsers
                     .Select(u => new UserDTO
                     {
                         Username = u.Username,
@@ -49,6 +33,15 @@ namespace UserManager.WebApi.Infrastructure.Repositories
                         RegisteredDate = u.RegisteredDate,
                     })
                     .ToListAsync();
+
+            // minus first default user
+            int usersCount = dbUsers.Count() - 1;
+
+            return new UsersWrapperDTO
+            {
+                Users = filteredUsers,
+                UsersCount = usersCount
+            };
         }
 
         public async Task<UserDTO?> GetUserByEmailAsync(string email)

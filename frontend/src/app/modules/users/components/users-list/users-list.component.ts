@@ -60,7 +60,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
 
         this.getUsersCount();
 
-        this.getAllUsers();
+        this.getUsers();
     }
 
     ngAfterViewInit(): void {
@@ -104,7 +104,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     // get all users - from store
-    public getAllUsers(): void {
+    public getUsers(): void {
         this.usersQuery.users$
             .pipe(takeUntil(this.destroy$))
             .subscribe((users: User[]) => {

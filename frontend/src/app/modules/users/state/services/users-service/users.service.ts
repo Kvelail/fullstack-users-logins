@@ -17,11 +17,11 @@ import { UsersQuery } from '../../store/users.query';
 import { RouteString } from '../../enums/route-string.enum';
 
 // models
-import { UserDTO } from '../../models/dto/userDTO.model';
 import { CreateUserDTO } from '../../models/dto/create-userDTO.model';
 import { LoginsDTO } from '../../models/dto/loginsDTO.model';
 import { LoginData } from '../../models/login-data.model';
 import { AuthToken } from '../../models/token.model';
+import { UsersWrapperDTO } from '../../models/dto/users-wrapperDTO';
 
 @Injectable({
     providedIn: 'root',
@@ -42,38 +42,21 @@ export class UsersService {
         private router: Router
     ) {}
 
-    // get all users
-    public getAllUsers(): Observable<UserDTO[]> {
-        const response = this.http.get<UserDTO[]>('/api/users').pipe(
-            tap((users) => {
-                // update store
-                this.usersStore.update((store) => {
-                    return {
-                        ...store,
-                        usersCount: users.length - 1,
-                    };
-                });
-            })
-        );
-
-        return response;
-    }
-
     // get paginated users
     public getPaginatedUsers(
         paginationNumber: number = 1
-    ): Observable<UserDTO[]> {
+    ): Observable<UsersWrapperDTO> {
         // users per page
         const countNumber = 10;
 
         const response = this.http
-            .get<UserDTO[]>(
+            .get<UsersWrapperDTO>(
                 `/api/users/paginated?paginationNumber=${paginationNumber}&countNumber=${countNumber}`
             )
             .pipe(
                 tap((users) => {
                     // filter users array
-                    const filteredUsers = users.map((user) => {
+                    const filteredUsers = users.users.map((user) => {
                         const formatedDate = format(
                             new Date(user.registeredDate),
                             'dd/MM/yyyy'
@@ -91,6 +74,7 @@ export class UsersService {
                         return {
                             ...store,
                             users: filteredUsers,
+                            usersCount: users.usersCount,
                         };
                     });
                 })

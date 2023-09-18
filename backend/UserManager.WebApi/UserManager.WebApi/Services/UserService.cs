@@ -13,12 +13,7 @@ namespace UserManager.WebApi.Services
             _userRepository = userRepository;
         }
 
-        public async Task<List<UserDTO>> GetAllUsersAsync()
-        {
-            return await _userRepository.GetAllUsersAsync();
-        }
-
-        public async Task<List<UserDTO>> GetPaginatedUsersAsync(int paginationNumber, int countNumber)
+        public async Task<UsersWrapperDTO> GetPaginatedUsersAsync(int paginationNumber, int countNumber)
         {
             int nextNRecordsToTake = countNumber;
             int firstNRecordsToSkip = (paginationNumber * countNumber) - countNumber;

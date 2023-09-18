@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UserManager.WebApi.Helpers;
 using UserManager.WebApi.Infrastructure.Models;
 
 namespace UserManager.WebApi.Infrastructure
@@ -36,32 +35,32 @@ namespace UserManager.WebApi.Infrastructure
                 .Entity<LoginAttemptType>()
                 .ToTable("LoginAttemptType");
 
-            modelBuilder
-                .Entity<LoginAttemptType>()
-                .HasData(
-                    new LoginAttemptType
-                    {
-                        LoginAttemptTypeId = 1,
-                        Code = "SL",
-                        Description = "Successful login"
-                    },
-                    new LoginAttemptType
-                    {
-                        LoginAttemptTypeId = 2,
-                        Code = "USL",
-                        Description = "Unsuccessful login"
-                    });
+            //modelBuilder
+            //    .Entity<LoginAttemptType>()
+            //    .HasData(
+            //        new LoginAttemptType
+            //        {
+            //            LoginAttemptTypeId = 1,
+            //            Code = "SL",
+            //            Description = "Successful login"
+            //        },
+            //        new LoginAttemptType
+            //        {
+            //            LoginAttemptTypeId = 2,
+            //            Code = "USL",
+            //            Description = "Unsuccessful login"
+            //        });
 
-            modelBuilder
-                .Entity<User>()
-                .HasData(new User
-                {
-                    UserId = 1,
-                    Username = "kvelail",
-                    Password = EncryptionHelper.EncryptBase64("Kvelail123"),
-                    Email = "kvelail@gmail.com",
-                    RegisteredDate = DateTime.UtcNow
-                });
+            //modelBuilder
+            //    .Entity<User>()
+            //    .HasData(new User
+            //    {
+            //        UserId = 1,
+            //        Username = "kvelail",
+            //        Password = EncryptionHelper.EncryptBase64("Kvelail123"),
+            //        Email = "kvelail@gmail.com",
+            //        RegisteredDate = DateTime.UtcNow
+            //    });
         }
     }
 }

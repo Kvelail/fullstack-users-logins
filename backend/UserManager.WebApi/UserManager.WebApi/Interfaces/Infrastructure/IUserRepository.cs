@@ -1,10 +1,11 @@
-﻿namespace UserManager.WebApi.Interfaces.Infrastructure
+﻿using UserManager.WebApi.Models.Dtos;
+
+namespace UserManager.WebApi.Interfaces.Infrastructure
 {
     public interface IUserRepository
     {
-        Task<List<WebApi.Models.Dtos.UserDTO>> GetAllUsersAsync();
-        Task<List<WebApi.Models.Dtos.UserDTO>> GetFilteredUsersAsync(int firstNRecordsToSkip, int nextNRecordsToTake);
-        Task<WebApi.Models.Dtos.UserDTO?> GetUserByEmailAsync(string email);
-        Task<bool> CreateNewUserAsync(WebApi.Models.Dtos.UserDTO user);
+        Task<UsersWrapperDTO> GetFilteredUsersAsync(int firstNRecordsToSkip, int nextNRecordsToTake);
+        Task<UserDTO?> GetUserByEmailAsync(string email);
+        Task<bool> CreateNewUserAsync(UserDTO user);
     }
 }

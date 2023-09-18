@@ -16,16 +16,11 @@ export class UsersComponent implements OnInit, OnDestroy {
     constructor(private usersService: UsersService) {}
 
     ngOnInit(): void {
-        this.getAllUsers();
+        this.getUsers();
     }
 
-    // get all users - backend communication
-    public getAllUsers(): void {
-        this.usersService
-            .getAllUsers()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe();
-
+    // get users - backend communication
+    public getUsers(): void {
         this.usersService
             .getPaginatedUsers()
             .pipe(takeUntil(this.destroy$))

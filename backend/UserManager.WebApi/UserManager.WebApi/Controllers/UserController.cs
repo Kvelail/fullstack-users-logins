@@ -23,22 +23,6 @@ namespace UserManager.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/users")]
-        public async Task<IActionResult> GetUsers()
-        {
-            try
-            {
-                var users = await _userService.GetAllUsersAsync();
-
-                return Ok(users);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-
-        [HttpGet]
         [Route("api/users/paginated")]
         public async Task<IActionResult> GetPaginatedUsers(int paginationNumber, int countNumber)
         {
