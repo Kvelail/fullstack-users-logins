@@ -28,6 +28,7 @@
                     placeholder="email@example.com"
                     required
                     spellcheck="false"
+                    (blur)="handleInputOnBlur('email')"
                 />
 
                 <mat-error *ngIf="loginForm.controls['email'].invalid">{{
@@ -60,6 +61,7 @@
                     formControlName="password"
                     matInput
                     [type]="hidePassword ? 'password' : 'text'"
+                    (blur)="handleInputOnBlur('password')"
                 />
 
                 <button

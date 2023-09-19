@@ -9,4 +9,6 @@ export enum ConstantString {
     LOGINS = 'logins',
 
     DATE_FORMAT = 'MM/dd/yyyy',
+
+    NUMBER_OF_PAGINATION_ARRAY = 'numberOfPaginationArray',
 }

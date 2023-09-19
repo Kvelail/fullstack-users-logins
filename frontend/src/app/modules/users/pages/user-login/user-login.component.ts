@@ -16,6 +16,9 @@ import { ValidationMessage } from '../../state/enums/validation-message.enum';
 // services
 import { UsersService } from '../../state/services/users-service/users.service';
 
+// helper
+import { inputOnBlur } from '../../state/utils/input.helper';
+
 @Component({
     selector: 'app-user-login',
     templateUrl: './user-login.component.html',
@@ -76,11 +79,6 @@ export class UserLoginComponent implements OnInit, OnDestroy {
             });
     }
 
-    // switch hide password
-    public switchHidePassword(): void {
-        this.hidePassword = !this.hidePassword;
-    }
-
     // login click
     public handleLoginClick(): void {
         const loginForm = this.loginForm;
@@ -102,6 +100,11 @@ export class UserLoginComponent implements OnInit, OnDestroy {
             .subscribe();
     }
 
+    // switch hide password
+    public switchHidePassword(): void {
+        this.hidePassword = !this.hidePassword;
+    }
+
     // handle button type emit
     public handleButtonTypeEmit(type: string): void {
         if (type === ConstantString.LOGIN) {
@@ -114,6 +117,11 @@ export class UserLoginComponent implements OnInit, OnDestroy {
         if (event.keyCode === 13) {
             this.handleLoginClick();
         }
+    }
+
+    // handle input on blur
+    public handleInputOnBlur(inputType: string): void {
+        inputOnBlur(this.loginForm.controls[inputType]);
     }
 
     ngOnDestroy(): void {

@@ -10,6 +10,9 @@ import {
 // models
 import { PaginationModel } from '../../state/models/pagination.model';
 
+// enums
+import { ConstantString } from '../../state/enums/constant-string.enum';
+
 @Component({
     selector: 'app-users-pagination',
     templateUrl: './users-pagination.component.html',
@@ -22,20 +25,22 @@ export class UsersPaginationComponent implements OnChanges {
     private activeNumber = 1;
 
     ngOnChanges(changes: SimpleChanges): void {
-        const number = changes['numberOfPaginationArray'].currentValue.find(
+        const paginationNumber: number = changes[
+            ConstantString.NUMBER_OF_PAGINATION_ARRAY
+        ].currentValue.find(
             (paginationNumber: PaginationModel) => paginationNumber.isActive
         ).number;
 
-        this.activeNumber = number;
+        this.activeNumber = paginationNumber;
     }
 
     public trackByIdentity = (_: number, item: PaginationModel): number =>
         item.number;
 
     public handlePaginationNumberClick(paginationNumber: number): void {
-        const isClickiOnActiveNumber = this.activeNumber === paginationNumber;
+        const isClickOnActiveNumber = this.activeNumber === paginationNumber;
 
-        if (isClickiOnActiveNumber) {
+        if (isClickOnActiveNumber) {
             return;
         }
 

@@ -18,6 +18,7 @@
                     placeholder="Username"
                     spellcheck="false"
                     required
+                    (blur)="handleInputOnBlur('username')"
                 />
             </mat-form-field>
 
@@ -33,6 +34,7 @@
                     placeholder="email@example.com"
                     required
                     spellcheck="false"
+                    (blur)="handleInputOnBlur('email')"
                 />
             </mat-form-field>
 
@@ -46,6 +48,7 @@
                     #passwordInput
                     matInput
                     [type]="hidePassword ? 'password' : 'text'"
+                    (blur)="handleInputOnBlur('password')"
                 />
 
                 <button

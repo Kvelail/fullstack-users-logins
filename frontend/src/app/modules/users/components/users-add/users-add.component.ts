@@ -24,6 +24,9 @@ import { ConstantString } from '../../state/enums/constant-string.enum';
 // services
 import { UsersService } from '../../state/services/users-service/users.service';
 
+// helper
+import { inputOnBlur } from '../../state/utils/input.helper';
+
 @Component({
     selector: 'app-users-add',
     templateUrl: './users-add.component.html',
@@ -54,11 +57,6 @@ export class UsersAddComponent implements OnInit, OnDestroy {
             email: [null, [Validators.required, ...emailValidation]],
             password: [null, [Validators.required, ...passwordValidation]],
         });
-    }
-
-    // switch hide password
-    public switchHidePassword(): void {
-        this.hidePassword = !this.hidePassword;
     }
 
     // create user - backend communication
@@ -93,6 +91,11 @@ export class UsersAddComponent implements OnInit, OnDestroy {
         addUserForm.markAsUntouched();
     }
 
+    // switch hide password
+    public switchHidePassword(): void {
+        this.hidePassword = !this.hidePassword;
+    }
+
     // handle button type emit
     public handleButtonTypeEmit(type: string): void {
         if (type === ConstantString.ADD) {
@@ -105,6 +108,11 @@ export class UsersAddComponent implements OnInit, OnDestroy {
         if (event.keyCode === 13) {
             this.handleAddUserClick();
         }
+    }
+
+    // handle input on blur
+    public handleInputOnBlur(inputType: string): void {
+        inputOnBlur(this.addUserForm.controls[inputType]);
     }
 
     ngOnDestroy(): void {
