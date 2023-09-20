@@ -26,6 +26,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+// sweet alert
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 // components
 import { UserLoginComponent } from './pages/user-login/user-login.component';
 import { UsersComponent } from './pages/users/users.component';
@@ -81,6 +84,9 @@ import { UsersLoadingSpinnerComponent } from './components/users-loading-spinner
         MatPaginatorModule,
         MatDialogModule,
         MatTooltipModule,
+
+        // sweet alert
+        SweetAlert2Module.forRoot(),
     ],
     exports: [UsersNavbarComponent],
     providers: [

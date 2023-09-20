@@ -1,9 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+    HttpClient,
+    HttpErrorResponse,
+    HttpHeaders,
+} from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 // dates
 import { format } from 'date-fns';
@@ -12,6 +16,9 @@ import { format } from 'date-fns';
 import { PersistState } from '@datorama/akita';
 import { UsersStore } from './../../store/users.store';
 import { UsersQuery } from '../../store/users.query';
+
+// services
+import { NotificationService } from '../notification-service/notification.service';
 
 // enums
 import { RouteString } from '../../enums/route-string.enum';
@@ -39,7 +46,8 @@ export class UsersService {
         private http: HttpClient,
         private usersStore: UsersStore,
         private usersQuery: UsersQuery,
-        private router: Router
+        private router: Router,
+        private notificationService: NotificationService
     ) {}
 
     // get paginated users
@@ -167,6 +175,25 @@ export class UsersService {
 
                     // navigate to dashboard
                     this.router.navigate([RouteString.DASHBOARD_USERS]);
+                }),
+                catchError((error: HttpErrorResponse) => {
+                    this.notificationService.displayNotification();
+                    // /*    console.log(error); */
+                    // if (error.error instanceof Error) {
+                    //     // A client-side or network error occurred. Handle it accordingly.
+                    //     console.error(
+                    //         'An error occurred:',
+                    //         error.error.message
+                    //     );
+                    // } else {
+                    //     // The backend returned an unsuccessful response code.
+                    //     // The response body may contain clues as to what went wrong,
+                    //     console.error(
+                    //         `Backend returned code ${error.status}, body was: ${error.error}`
+                    //     );
+                    // }
+
+                    return EMPTY;
                 })
             );
 
