@@ -1,99 +1,129 @@
 <div class="login">
-    <!-- Form -->
-    <form [formGroup]="loginForm" (keydown)="onKeyDown($event)">
-        <!-- Email input -->
+    <div class="login-card">
+        <!-- Logo -->
 
-        <div class="email-input-container">
-            <!-- Icon -->
-            <div class="icon-container">
-                <svg-icon
-                    class="icon"
-                    src="../../../../../assets/svg/email.svg"
-                    [svgStyle]="{
-                        'width.px': 35,
-                        'height.px': 35
-                    }"
-                ></svg-icon>
-            </div>
+        <svg-icon
+            class="logo"
+            src="../../../../../assets/svg/logo.svg"
+            [svgStyle]="{
+                    'width.px': 70,
+                    'height.px':70,
+                }"
+        ></svg-icon>
 
-            <!-- Input -->
-            <mat-form-field class="email-input">
-                <mat-label class="user-select-none">Email</mat-label>
-
-                <input
-                    #emailInput
-                    autofocus
-                    trimInputValue
-                    class="user-select-black"
-                    formControlName="email"
-                    matInput
-                    placeholder="email@example.com"
-                    required
-                    spellcheck="false"
-                    (blur)="handleInputOnBlur('email')"
-                />
-
-                <mat-error *ngIf="loginForm.controls['email'].invalid">{{
-                    emailError
-                }}</mat-error>
-            </mat-form-field>
+        <div class="login-text">
+            <p class="user-select-turquoise">Login</p>
         </div>
 
-        <!-- Password input -->
+        <!-- Form -->
+        <form [formGroup]="loginForm" (keydown)="onKeyDown($event)">
+            <!-- Email input -->
 
-        <div class="password-input-container">
-            <!-- Icon -->
-            <div class="icon-container">
-                <svg-icon
-                    class="icon"
-                    src="../../../../../assets/svg/password.svg"
-                    [svgStyle]="{
-                        'width.px': 35,
-                        'height.px': 35
-                    }"
-                ></svg-icon>
+            <div class="email-input-container">
+                <!-- Icon -->
+                <div class="icon-container">
+                    <svg-icon
+                        class="icon"
+                        src="../../../../../assets/svg/email.svg"
+                        [svgStyle]="{
+                            'width.px': 35,
+                            'height.px': 35
+                        }"
+                    ></svg-icon>
+                </div>
+
+                <!-- Input -->
+                <mat-form-field class="email-input">
+                    <mat-label class="user-select-none">Email</mat-label>
+
+                    <input
+                        #emailInput
+                        autofocus
+                        trimInputValue
+                        class="user-select-black"
+                        formControlName="email"
+                        matInput
+                        placeholder="email@example.com"
+                        required
+                        spellcheck="false"
+                        (blur)="handleInputOnBlur('email')"
+                    />
+
+                    <!--    <mat-error *ngIf="loginForm.controls['email'].invalid">{{
+                        emailError
+                    }}</mat-error> -->
+                </mat-form-field>
             </div>
 
-            <!-- Input -->
-            <mat-form-field>
-                <mat-label class="user-select-none">Password</mat-label>
+            <!-- Password input -->
 
-                <input
-                    class="user-select-black"
-                    formControlName="password"
-                    matInput
-                    [type]="hidePassword ? 'password' : 'text'"
-                    (blur)="handleInputOnBlur('password')"
-                />
+            <div class="password-input-container">
+                <!-- Icon -->
+                <div class="icon-container">
+                    <svg-icon
+                        class="icon"
+                        src="../../../../../assets/svg/password.svg"
+                        [svgStyle]="{
+                            'width.px': 35,
+                            'height.px': 35
+                        }"
+                    ></svg-icon>
+                </div>
 
-                <button
-                    type="button"
-                    (click)="switchHidePassword()"
-                    [attr.aria-pressed]="hidePassword"
-                    [attr.aria-label]="'Hide password'"
-                    mat-icon-button
-                    matSuffix
-                >
-                    <mat-icon>{{
-                        hidePassword ? 'visibility_off' : 'visibility'
-                    }}</mat-icon>
-                </button>
+                <!-- Input -->
+                <mat-form-field>
+                    <mat-label class="user-select-none">Password</mat-label>
 
-                <mat-error *ngIf="loginForm.controls['password'].invalid">{{
-                    passwordError
-                }}</mat-error>
-            </mat-form-field>
+                    <input
+                        class="user-select-black"
+                        formControlName="password"
+                        matInput
+                        [type]="hidePassword ? 'password' : 'text'"
+                        (blur)="handleInputOnBlur('password')"
+                    />
+
+                    <button
+                        type="button"
+                        (click)="switchHidePassword()"
+                        [attr.aria-pressed]="hidePassword"
+                        [attr.aria-label]="'Hide password'"
+                        mat-icon-button
+                        matSuffix
+                    >
+                        <mat-icon>{{
+                            hidePassword ? 'visibility_off' : 'visibility'
+                        }}</mat-icon>
+                    </button>
+
+                    <!-- <mat-error *ngIf="loginForm.controls['password'].invalid">{{
+                        passwordError
+                    }}</mat-error> -->
+                </mat-form-field>
+            </div>
+
+            <!-- Forgot password btn -->
+            <div class="forgot-password-container">
+                <app-users-auth-btn
+                    [buttonType]="'password'"
+                    (buttonTypeEmitter)="handleButtonTypeEmit($event)"
+                ></app-users-auth-btn>
+            </div>
+
+            <!-- Submit button -->
+            <app-users-submit-btn
+                [disabledValue]="loginForm.invalid"
+                (buttonTypeEmitter)="handleButtonTypeEmit($event)"
+            ></app-users-submit-btn>
+        </form>
+
+        <!-- Not a user -->
+        <div class="signup-container">
+            <p class="user-select-black">
+                Not a user?
+                <app-users-auth-btn
+                    (buttonTypeEmitter)="handleButtonTypeEmit($event)"
+                ></app-users-auth-btn>
+            </p>
         </div>
-
-        <!-- Submit button -->
-        <app-users-submit-btn
-            [disabledValue]="loginForm.invalid"
-            (buttonTypeEmitter)="handleButtonTypeEmit($event)"
-        ></app-users-submit-btn>
-    </form>
-
-    <!-- Not a user -->
-    <div class="signup-container">
-        <p class="user-select-none">Not a user? <span>Signup now</span></p>
     </div>
 </div>

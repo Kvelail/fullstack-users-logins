@@ -116,6 +116,10 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
             .pipe(takeUntil(this.destroy$))
             .subscribe((users: User[]) => {
                 if (users) {
+                    // users table
+                    this.usersList = users;
+                    this.usersListTableData = new MatTableDataSource(users);
+
                     // calculate numbers in pagination based on users list length
                     if (this.doCalculate) {
                         this.calculatePaginationNumbers();
@@ -129,10 +133,6 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
 
                         this.doCalculate = false;
                     } else {
-                        // users table
-                        this.usersList = users;
-                        this.usersListTableData = new MatTableDataSource(users);
-
                         // apply sort when new user is added
                         this.sortUsersListData();
                     }

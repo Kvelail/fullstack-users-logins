@@ -3,61 +3,110 @@
 .login {
     height: calc(100vh - 4rem);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    form {
+    &-card {
         display: flex;
         flex-direction: column;
-        max-width: 40rem;
+        justify-content: center;
+        align-items: center;
         width: 100%;
-        font-size: 1.6rem;
+        max-width: 50rem;
+        background: $color-white;
+        padding: 2rem;
+        border-radius: 1rem;
 
-        /* Inputs */
-        .email-input-container,
-        .password-input-container {
+        /* Logo */
+        .logo {
+            margin-bottom: 1rem;
+
+            path {
+                fill: $color-turquoise;
+            }
+        }
+
+        .login-text {
             display: flex;
+            justify-content: flex-start;
+            width: 100%;
 
-            .icon-container {
+            p {
+                justify-self: flex-start;
+                margin-bottom: 1rem;
+                color: $color-turquoise;
+                font-size: 2rem;
+                font-weight: 700;
+            }
+        }
+
+        /* Form */
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 50rem;
+            width: 100%;
+            font-size: 1.6rem;
+
+            /* Inputs */
+            .email-input-container,
+            .password-input-container {
                 display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 8.25rem;
-                height: 5.6rem;
-                margin-right: 0.5rem;
-                border-radius: 0.5rem;
-                line-height: 0;
-                background: $color-turquoise;
 
-                .icon {
-                    path {
-                        fill: $color-white;
+                .icon-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 8.25rem;
+                    height: 5.6rem;
+                    margin-right: 0.5rem;
+                    border-radius: 0.5rem;
+                    line-height: 0;
+                    background: $color-turquoise;
+
+                    .icon {
+                        path {
+                            fill: $color-white;
+                        }
+                    }
+                }
+
+                mat-form-field {
+                    width: 100%;
+                }
+
+                &.email-input-container {
+                    mat-form-field {
+                        margin-bottom: 0.5rem;
+                    }
+                }
+
+                &.password-input-container {
+                    mat-form-field {
+                        margin-bottom: -1.5rem;
+                        z-index: 1;
                     }
                 }
             }
 
-            mat-form-field {
-                width: 100%;
-                margin-bottom: 0.5rem;
+            .forgot-password-container {
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 1rem;
+                z-index: 2;
             }
         }
-    }
 
-    /* Signup */
-    .signup-container {
-        display: flex;
-        align-items: center;
-        margin-top: 1rem;
+        /* Signup */
+        .signup-container {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
 
-        p {
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: $color-black;
-
-            span {
-                font-weight: 700;
-                color: $color-turquoise;
+            p {
+                font-size: 1.4rem;
+                font-weight: 500;
+                color: $color-black;
             }
         }
     }

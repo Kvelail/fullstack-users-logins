@@ -8,6 +8,7 @@ export enum ConstantString {
     USERS = 'users',
     LOGINS = 'logins',
     ANIMATION = 'animation',
+    REGISTER = 'register',
 
     DATE_FORMAT = 'MM/dd/yyyy',
 

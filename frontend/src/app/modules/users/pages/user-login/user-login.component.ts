@@ -120,6 +120,12 @@ export class UserLoginComponent implements OnInit, OnDestroy {
         if (type === ConstantString.LOGIN) {
             this.handleLoginClick();
         }
+
+        if (type === ConstantString.REGISTER) {
+        }
+
+        if (type === ConstantString.PASSWORD) {
+        }
     }
 
     // login click on enter key

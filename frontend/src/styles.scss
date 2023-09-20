@@ -79,6 +79,18 @@ body {
     }
 }
 
+.user-select-turquoise {
+    &::-moz-selection {
+        color: $color-turquoise;
+        background: rgb(45, 155, 189, 0.2);
+    }
+
+    &::selection {
+        color: $color-turquoise;
+        background: rgb(45, 155, 189, 0.2);
+    }
+}
+
 .tooltip {
     font-size: 1.3rem;
     padding: 0.5rem;
