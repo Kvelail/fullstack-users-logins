@@ -1,0 +1,28 @@
+@import '../../../../../styles/variables.scss';
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+
+    .spinner {
+        width: 10rem;
+        height: 10rem;
+        border: 1.5rem solid $color-white;
+        border-bottom-color: $color-turquoise;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}

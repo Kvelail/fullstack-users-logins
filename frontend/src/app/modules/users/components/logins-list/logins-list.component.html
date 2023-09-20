@@ -1,98 +1,104 @@
-<div class="logins-list">
-    <!-- Search filter -->
-    <app-users-filter [searchFilterType]="'logins'"></app-users-filter>
+<!-- Spinner -->
+<app-users-loading-spinner *ngIf="isLoading"></app-users-loading-spinner>
 
-    <!-- Table -->
-    <table
-        class="logins-list-table"
-        mat-table
-        matSort
-        [dataSource]="loginsListTableData"
-    >
-        <!-- Username Column -->
-        <ng-container matColumnDef="username">
-            <th
-                class="user-select-none"
-                *matHeaderCellDef
-                mat-header-cell
-                mat-sort-header
-            >
-                Username
-            </th>
-            <td
-                class="username-cell user-select-black"
-                mat-cell
-                *matCellDef="let element"
-            >
-                {{ element.username }}
-            </td>
-        </ng-container>
+<!-- Content -->
+<ng-container *ngIf="!isLoading">
+    <div class="logins-list">
+        <!-- Search filter -->
+        <app-users-filter [searchFilterType]="'logins'"></app-users-filter>
 
-        <!-- Login passed Column -->
-        <ng-container matColumnDef="login passed">
-            <th
-                class="login-header user-select-none"
-                *matHeaderCellDef
-                mat-header-cell
-                mat-sort-header
-                disabled="true"
-            >
-                Login Passed
-            </th>
-            <td class="login-cell" mat-cell *matCellDef="let element">
-                <ng-container *ngIf="element.loginPassed === 'SL'">
-                    <svg-icon
-                        class="success-icon"
-                        src="../../../../../assets/svg/success.svg"
-                        [svgStyle]="{
-                            'width.px': 20,
-                            'height.px': 20
-                        }"
-                    ></svg-icon>
-                </ng-container>
+        <!-- Table -->
+        <table
+            class="logins-list-table"
+            mat-table
+            matSort
+            [dataSource]="loginsListTableData"
+        >
+            <!-- Username Column -->
+            <ng-container matColumnDef="username">
+                <th
+                    class="user-select-none"
+                    *matHeaderCellDef
+                    mat-header-cell
+                    mat-sort-header
+                >
+                    Username
+                </th>
+                <td
+                    class="username-cell user-select-black"
+                    mat-cell
+                    *matCellDef="let element"
+                >
+                    {{ element.username }}
+                </td>
+            </ng-container>
 
-                <ng-container *ngIf="element.loginPassed === 'USL'">
-                    <svg-icon
-                        class="unsuccess-icon"
-                        src="../../../../../assets/svg/unsuccess.svg"
-                        [svgStyle]="{
-                            'width.px': 15,
-                            'height.px': 15
-                        }"
-                    ></svg-icon>
-                </ng-container>
-            </td>
-        </ng-container>
+            <!-- Login passed Column -->
+            <ng-container matColumnDef="login passed">
+                <th
+                    class="login-header user-select-none"
+                    *matHeaderCellDef
+                    mat-header-cell
+                    mat-sort-header
+                    disabled="true"
+                >
+                    Login Passed
+                </th>
+                <td class="login-cell" mat-cell *matCellDef="let element">
+                    <ng-container *ngIf="element.loginPassed === 'SL'">
+                        <svg-icon
+                            class="success-icon"
+                            src="../../../../../assets/svg/success.svg"
+                            [svgStyle]="{
+                                'width.px': 20,
+                                'height.px': 20
+                            }"
+                        ></svg-icon>
+                    </ng-container>
 
-        <!-- Attempt date Column -->
-        <ng-container matColumnDef="attempt date">
-            <th
-                class="date-header user-select-none"
-                *matHeaderCellDef
-                mat-header-cell
-                mat-sort-header
-                disabled="true"
-            >
-                Attempt Date
-            </th>
-            <td
-                class="date-cell user-select-black"
-                mat-cell
-                *matCellDef="let element"
-            >
-                {{ element.attemptDate }}
-            </td>
-        </ng-container>
+                    <ng-container *ngIf="element.loginPassed === 'USL'">
+                        <svg-icon
+                            class="unsuccess-icon"
+                            src="../../../../../assets/svg/unsuccess.svg"
+                            [svgStyle]="{
+                                'width.px': 15,
+                                'height.px': 15
+                            }"
+                        ></svg-icon>
+                    </ng-container>
+                </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+            <!-- Attempt date Column -->
+            <ng-container matColumnDef="attempt date">
+                <th
+                    class="date-header user-select-none"
+                    *matHeaderCellDef
+                    mat-header-cell
+                    mat-sort-header
+                    disabled="true"
+                >
+                    Attempt Date
+                </th>
+                <td
+                    class="date-cell user-select-black"
+                    mat-cell
+                    *matCellDef="let element"
+                >
+                    {{ element.attemptDate }}
+                </td>
+            </ng-container>
 
-    <!-- Pagination -->
-    <!-- Display pagination if more then 10 logins in list -->
-    <app-users-pagination
-        *ngIf="loginsCount > 10"
-        [paginationNumbersArray]="paginationNumbersArray"
-        (paginationNumberEmitter)="handlePaginationNumberEmit($event)"
-    ></app-users-pagination>
-</div>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <!-- Pagination -->
+        <!-- Display pagination if more then 10 logins in list -->
+        <app-users-pagination
+            *ngIf="loginsCount > 10"
+            [paginationNumbersArray]="paginationNumbersArray"
+            (paginationNumberEmitter)="handlePaginationNumberEmit($event)"
+        ></app-users-pagination>
+    </div>
+</ng-container>

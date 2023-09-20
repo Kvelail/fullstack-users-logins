@@ -42,6 +42,9 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
 
     private destroy$ = new Subject<void>();
 
+    private isFirstLoad: boolean = true;
+    public isLoading: boolean = true;
+
     // construct table
     private usersList: User[] = [];
     public usersListTableData = new MatTableDataSource<User>([]);
@@ -51,7 +54,6 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     public paginationNumbersArray: Pagination[] = [];
     public usersCount: number = 0;
     private doCalculate: boolean = false;
-    private isFirstLoad: boolean = true;
 
     constructor(
         private searchFilterService: SearchFilterService,
@@ -116,6 +118,8 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
             .pipe(takeUntil(this.destroy$))
             .subscribe((users: User[]) => {
                 if (users) {
+                    this.isLoading = false;
+
                     // users table
                     this.usersList = users;
                     this.usersListTableData = new MatTableDataSource(users);

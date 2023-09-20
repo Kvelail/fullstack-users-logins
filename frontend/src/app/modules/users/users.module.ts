@@ -38,6 +38,7 @@ import { UsersAddComponent } from './components/users-add/users-add.component';
 import { UsersSubmitBtnComponent } from './components/users-submit-btn/users-submit-btn.component';
 import { LoginsListComponent } from './components/logins-list/logins-list.component';
 import { UsersAuthBtnComponent } from './components/users-auth-btn/users-auth-btn.component';
+import { UsersLoadingSpinnerComponent } from './components/users-loading-spinner/users-loading-spinner.component';
 
 @NgModule({
     declarations: [
@@ -53,6 +54,7 @@ import { UsersAuthBtnComponent } from './components/users-auth-btn/users-auth-bt
         UsersSubmitBtnComponent,
         LoginsListComponent,
         UsersAuthBtnComponent,
+        UsersLoadingSpinnerComponent,
 
         // directives
         UsersTrimInputDirective,

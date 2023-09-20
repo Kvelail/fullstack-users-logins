@@ -1,101 +1,107 @@
-<div class="users-list">
-    <!-- Search filter -->
-    <div class="users-list-top">
-        <app-users-filter></app-users-filter>
+<!-- Spinner -->
+<app-users-loading-spinner *ngIf="isLoading"></app-users-loading-spinner>
 
-        <div class="btn-container">
-            <button
-                type="button"
-                class="add-btn"
-                (click)="handleAddUserClick()"
-            >
-                <p class="user-select-none">Add User</p>
+<!-- Content -->
+<ng-container *ngIf="!isLoading">
+    <div class="users-list">
+        <!-- Search filter -->
+        <div class="users-list-top">
+            <app-users-filter></app-users-filter>
 
-                <svg-icon
-                    class="plus-icon"
-                    src="../../../../../assets/svg/plus.svg"
-                    [svgStyle]="{
-                        'width.px': 30,
-                        'height.px': 30
-                    }"
-                ></svg-icon>
-            </button>
+            <div class="btn-container">
+                <button
+                    type="button"
+                    class="add-btn"
+                    (click)="handleAddUserClick()"
+                >
+                    <p class="user-select-none">Add User</p>
+
+                    <svg-icon
+                        class="plus-icon"
+                        src="../../../../../assets/svg/plus.svg"
+                        [svgStyle]="{
+                            'width.px': 30,
+                            'height.px': 30
+                        }"
+                    ></svg-icon>
+                </button>
+            </div>
         </div>
+
+        <!-- Table -->
+        <table
+            class="users-list-table"
+            mat-table
+            matSort
+            [dataSource]="usersListTableData"
+        >
+            <!-- Name Column -->
+            <ng-container matColumnDef="username">
+                <th
+                    class="user-select-none"
+                    *matHeaderCellDef
+                    mat-header-cell
+                    mat-sort-header
+                >
+                    Username
+                </th>
+                <td
+                    class="username-cell user-select-black"
+                    mat-cell
+                    *matCellDef="let element"
+                >
+                    {{ element.username }}
+                </td>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+                <th
+                    class="user-select-none"
+                    *matHeaderCellDef
+                    mat-header-cell
+                    mat-sort-header
+                >
+                    Email
+                </th>
+                <td
+                    class="email-cell user-select-black"
+                    mat-cell
+                    *matCellDef="let element"
+                >
+                    {{ element.email }}
+                </td>
+            </ng-container>
+
+            <!-- Crested At Column -->
+            <ng-container matColumnDef="registeredDate">
+                <th
+                    class="user-select-none"
+                    *matHeaderCellDef
+                    mat-header-cell
+                    mat-sort-header
+                >
+                    Created At
+                </th>
+                <td
+                    class="created-cell user-select-black"
+                    mat-cell
+                    *matCellDef="let element"
+                >
+                    {{ element.registeredDate }}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <!-- Pagination -->
+        <!-- Display pagination if more then 10 users in list -->
+        <app-users-pagination
+            *ngIf="usersCount > 10"
+            [paginationNumbersArray]="paginationNumbersArray"
+            (paginationNumberEmitter)="handlePaginationNumberEmit($event)"
+        ></app-users-pagination>
     </div>
-
-    <!-- Table -->
-    <table
-        class="users-list-table"
-        mat-table
-        matSort
-        [dataSource]="usersListTableData"
-    >
-        <!-- Name Column -->
-        <ng-container matColumnDef="username">
-            <th
-                class="user-select-none"
-                *matHeaderCellDef
-                mat-header-cell
-                mat-sort-header
-            >
-                Username
-            </th>
-            <td
-                class="username-cell user-select-black"
-                mat-cell
-                *matCellDef="let element"
-            >
-                {{ element.username }}
-            </td>
-        </ng-container>
-
-        <!-- Email Column -->
-        <ng-container matColumnDef="email">
-            <th
-                class="user-select-none"
-                *matHeaderCellDef
-                mat-header-cell
-                mat-sort-header
-            >
-                Email
-            </th>
-            <td
-                class="email-cell user-select-black"
-                mat-cell
-                *matCellDef="let element"
-            >
-                {{ element.email }}
-            </td>
-        </ng-container>
-
-        <!-- Crested At Column -->
-        <ng-container matColumnDef="registeredDate">
-            <th
-                class="user-select-none"
-                *matHeaderCellDef
-                mat-header-cell
-                mat-sort-header
-            >
-                Created At
-            </th>
-            <td
-                class="created-cell user-select-black"
-                mat-cell
-                *matCellDef="let element"
-            >
-                {{ element.registeredDate }}
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-
-    <!-- Pagination -->
-    <!-- Display pagination if more then 10 users in list -->
-    <app-users-pagination
-        *ngIf="usersCount > 10"
-        [paginationNumbersArray]="paginationNumbersArray"
-        (paginationNumberEmitter)="handlePaginationNumberEmit($event)"
-    ></app-users-pagination>
-</div>
+</ng-container>
