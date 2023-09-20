@@ -21,7 +21,7 @@ import { InputHelper } from '../../state/utils/input.helper';
     styleUrls: ['./users-filter.component.scss'],
 })
 export class UsersFilterComponent implements AfterViewInit {
-    @ViewChild('searchInput') searchInput!: ElementRef;
+    @ViewChild('searchInput') public searchInput!: ElementRef;
 
     @Input() searchFilterType: string = ConstantString.USERS;
 

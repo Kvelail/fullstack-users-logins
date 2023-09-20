@@ -1,14 +1,27 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+
+// animations
+import { faderAnimation } from './modules/users/state/animations/route.animation';
+
+// enums
+import { ConstantString } from './modules/users/state/enums/constant-string.enum';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    animations: [faderAnimation],
 })
 export class AppComponent {
-    title = 'Zentury Media';
-
     constructor(public router: Router) {}
+
+    public prepareRoute(outlet: RouterOutlet) {
+        return (
+            outlet &&
+            outlet.activatedRouteData &&
+            outlet.activatedRouteData[ConstantString.ANIMATION]
+        );
+    }
 }

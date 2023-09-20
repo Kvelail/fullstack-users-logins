@@ -18,11 +18,13 @@ const routes: Routes = [
         path: 'dashboard/users',
         component: UsersComponent,
         canActivate: [UsersAuthenticationGuard],
+        data: { animation: 'isLeft' },
     },
     {
         path: 'dashboard/logins',
         component: UsersLoginsComponent,
         canActivate: [UsersAuthenticationGuard],
+        data: { animation: 'isRight' },
     },
     { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

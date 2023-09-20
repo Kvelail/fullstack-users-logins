@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Subject, takeUntil } from 'rxjs';
@@ -25,6 +31,8 @@ import { InputHelper } from '../../state/utils/input.helper';
     styleUrls: ['./user-login.component.scss'],
 })
 export class UserLoginComponent implements OnInit, OnDestroy {
+    @ViewChild('emailInput') public emailInput!: ElementRef;
+
     private destroy$ = new Subject<void>();
 
     // form
@@ -42,6 +50,8 @@ export class UserLoginComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.createForm();
+
+        this.setAutofocusOnEmailInput();
 
         this.checkIfFormHasInvalidInputs();
     }
@@ -122,6 +132,13 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     // handle input on blur
     public handleInputOnBlur(inputType: string): void {
         InputHelper.inputOnBlur(this.loginForm.controls[inputType]);
+    }
+
+    // autofocis email input
+    private setAutofocusOnEmailInput(): void {
+        setTimeout(() => {
+            InputHelper.setAutofocusOnInput(this.emailInput);
+        }, 100);
     }
 
     ngOnDestroy(): void {
