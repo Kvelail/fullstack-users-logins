@@ -12,9 +12,6 @@ import { Subject, takeUntil } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
-// static
-import { LOGINS_TABLE_HEADER_ITEMS } from '../../state/utils/static';
-
 // services
 import { SearchFilterService } from '../../state/services/search-filter-service/search-filter.service';
 import { UsersService } from '../../state/services/users-service/users.service';
@@ -22,9 +19,15 @@ import { UsersService } from '../../state/services/users-service/users.service';
 // store
 import { UsersQuery } from '../../state/store/users.query';
 
+// constants
+import { Constants } from '../../state/utils/constants';
+
+// helper
+import { changeActivePaginationNumber } from '../../state/utils/pagination.helper';
+
 // models
 import { Login } from '../../state/models/login.model';
-import { PaginationModel } from '../../state/models/pagination.model';
+import { Pagination } from '../../state/models/pagination.model';
 
 @Component({
     selector: 'app-logins-list',
@@ -42,7 +45,7 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
     public displayedColumns: string[] = [];
 
     // pagination
-    public numberOfPaginationArray: PaginationModel[] = [];
+    public paginationNumbersArray: Pagination[] = [];
     public loginsCount: number = 0;
     private isFirstLoad: boolean = true;
 
@@ -68,7 +71,7 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // get table header items
     private getTableHeaderItems(): void {
-        this.displayedColumns = LOGINS_TABLE_HEADER_ITEMS;
+        this.displayedColumns = Constants.LOGINS_TABLE_HEADER_ITEMS;
     }
 
     // sort columns
@@ -122,7 +125,7 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // calculate pagination numbers
     private calculatePaginationNumbers(): void {
-        this.numberOfPaginationArray = Array(Math.ceil(this.loginsCount / 10))
+        this.paginationNumbersArray = Array(Math.ceil(this.loginsCount / 10))
             .fill(0)
             .map((_, index) => {
                 return {
@@ -130,29 +133,6 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
                     isActive: index === 0 ? true : false,
                 };
             });
-    }
-
-    // change active pagination number
-    private changeActivePaginationNumber(paginationNumber: number): void {
-        this.numberOfPaginationArray = this.numberOfPaginationArray.map(
-            (item: PaginationModel, index) => {
-                if (item.isActive) {
-                    return {
-                        ...item,
-                        isActive: false,
-                    };
-                }
-
-                if (index === paginationNumber - 1) {
-                    return {
-                        ...item,
-                        isActive: true,
-                    };
-                }
-
-                return item;
-            }
-        );
     }
 
     // get logins count
@@ -168,7 +148,10 @@ export class LoginsListComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // handle pagination number emit
     public handlePaginationNumberEmit(paginationNumber: number): void {
-        this.changeActivePaginationNumber(paginationNumber);
+        this.paginationNumbersArray = changeActivePaginationNumber(
+            paginationNumber,
+            this.paginationNumbersArray
+        );
 
         // get paginated logins list
         this.usersService

@@ -11,9 +11,8 @@ import { Subject, takeUntil } from 'rxjs';
 // angular material ui
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-// static
-import { TABLE_HEADER_ITEMS } from '../../state/utils/static';
+import { MatDialog } from '@angular/material/dialog';
+import { UsersAddComponent } from '../users-add/users-add.component';
 
 // services
 import { SearchFilterService } from '../../state/services/search-filter-service/search-filter.service';
@@ -22,9 +21,16 @@ import { UsersService } from '../../state/services/users-service/users.service';
 // store
 import { UsersQuery } from './../../state/store/users.query';
 
+// constants
+import { Constants } from '../../state/utils/constants';
+
+// helper
+import { dialogOptions } from '../../state/utils/dialog.helper';
+import { changeActivePaginationNumber } from '../../state/utils/pagination.helper';
+
 // models
 import { User } from '../../state/models/user.model';
-import { PaginationModel } from '../../state/models/pagination.model';
+import { Pagination } from '../../state/models/pagination.model';
 
 @Component({
     selector: 'app-users-list',
@@ -42,7 +48,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     public displayedColumns: string[] = [];
 
     // pagination
-    public numberOfPaginationArray: PaginationModel[] = [];
+    public paginationNumbersArray: Pagination[] = [];
     public usersCount: number = 0;
     private doCalculate: boolean = false;
     private isFirstLoad: boolean = true;
@@ -50,7 +56,8 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     constructor(
         private searchFilterService: SearchFilterService,
         private usersService: UsersService,
-        private usersQuery: UsersQuery
+        private usersQuery: UsersQuery,
+        private addUserDialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -69,7 +76,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
 
     // get table header items
     private getTableHeaderItems(): void {
-        this.displayedColumns = TABLE_HEADER_ITEMS;
+        this.displayedColumns = Constants.TABLE_HEADER_ITEMS;
     }
 
     // sort columns
@@ -136,7 +143,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     // get last page users list
     private getLastPageUsers(): void {
         this.usersService
-            .getPaginatedUsers(this.numberOfPaginationArray.length)
+            .getPaginatedUsers(this.paginationNumbersArray.length)
             .pipe(takeUntil(this.destroy$))
             .subscribe();
     }
@@ -156,7 +163,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
 
     // calculate pagination numbers
     private calculatePaginationNumbers(): void {
-        this.numberOfPaginationArray = Array(Math.ceil(this.usersCount / 10))
+        this.paginationNumbersArray = Array(Math.ceil(this.usersCount / 10))
             .fill(0)
             .map((_, index) => {
                 return {
@@ -165,45 +172,30 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
                         this.isFirstLoad && index === 0
                             ? true
                             : !this.isFirstLoad &&
-                              index === this.numberOfPaginationArray.length - 1
+                              index === this.paginationNumbersArray.length - 1
                             ? true
                             : false,
                 };
             });
     }
 
-    // change active pagination number
-    private changeActivePaginationNumber(paginationNumber: number): void {
-        this.numberOfPaginationArray = this.numberOfPaginationArray.map(
-            (item: PaginationModel, index) => {
-                if (item.isActive) {
-                    return {
-                        ...item,
-                        isActive: false,
-                    };
-                }
-
-                if (index === paginationNumber - 1) {
-                    return {
-                        ...item,
-                        isActive: true,
-                    };
-                }
-
-                return item;
-            }
-        );
-    }
-
     // handle pagination number emit
     public handlePaginationNumberEmit(paginationNumber: number): void {
-        this.changeActivePaginationNumber(paginationNumber);
+        this.paginationNumbersArray = changeActivePaginationNumber(
+            paginationNumber,
+            this.paginationNumbersArray
+        );
 
         // get paginated users list
         this.usersService
             .getPaginatedUsers(paginationNumber)
             .pipe(takeUntil(this.destroy$))
             .subscribe();
+    }
+
+    // handle add user click
+    public handleAddUserClick(): void {
+        this.addUserDialog.open(UsersAddComponent, dialogOptions);
     }
 
     ngOnDestroy(): void {

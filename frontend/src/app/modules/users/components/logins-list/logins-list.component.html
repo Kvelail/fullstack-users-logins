@@ -92,7 +92,7 @@
     <!-- Display pagination if more then 10 logins in list -->
     <app-users-pagination
         *ngIf="loginsCount > 10"
-        [numberOfPaginationArray]="numberOfPaginationArray"
+        [paginationNumbersArray]="paginationNumbersArray"
         (paginationNumberEmitter)="handlePaginationNumberEmit($event)"
     ></app-users-pagination>
 </div>

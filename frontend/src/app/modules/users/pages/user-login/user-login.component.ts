@@ -17,7 +17,7 @@ import { ValidationMessage } from '../../state/enums/validation-message.enum';
 import { UsersService } from '../../state/services/users-service/users.service';
 
 // helper
-import { inputOnBlur } from '../../state/utils/input.helper';
+import { InputHelper } from '../../state/utils/input.helper';
 
 @Component({
     selector: 'app-user-login',
@@ -121,7 +121,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
 
     // handle input on blur
     public handleInputOnBlur(inputType: string): void {
-        inputOnBlur(this.loginForm.controls[inputType]);
+        InputHelper.inputOnBlur(this.loginForm.controls[inputType]);
     }
 
     ngOnDestroy(): void {

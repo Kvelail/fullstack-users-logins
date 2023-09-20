@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 // models
-import { PaginationModel } from '../../state/models/pagination.model';
+import { Pagination } from '../../state/models/pagination.model';
 
 // enums
 import { ConstantString } from '../../state/enums/constant-string.enum';
@@ -19,7 +19,7 @@ import { ConstantString } from '../../state/enums/constant-string.enum';
     styleUrls: ['./users-pagination.component.scss'],
 })
 export class UsersPaginationComponent implements OnChanges {
-    @Input() numberOfPaginationArray: PaginationModel[] = [];
+    @Input() paginationNumbersArray: Pagination[] = [];
     @Output() paginationNumberEmitter = new EventEmitter<number>();
 
     private activeNumber = 1;
@@ -28,13 +28,13 @@ export class UsersPaginationComponent implements OnChanges {
         const paginationNumber: number = changes[
             ConstantString.NUMBER_OF_PAGINATION_ARRAY
         ].currentValue.find(
-            (paginationNumber: PaginationModel) => paginationNumber.isActive
+            (paginationNumber: Pagination) => paginationNumber.isActive
         ).number;
 
         this.activeNumber = paginationNumber;
     }
 
-    public trackByIdentity = (_: number, item: PaginationModel): number =>
+    public trackByIdentity = (_: number, item: Pagination): number =>
         item.number;
 
     public handlePaginationNumberClick(paginationNumber: number): void {

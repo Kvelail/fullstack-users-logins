@@ -1,4 +1,4 @@
-export interface PaginationModel {
+export interface Pagination {
     number: number;
     isActive: boolean;
 }

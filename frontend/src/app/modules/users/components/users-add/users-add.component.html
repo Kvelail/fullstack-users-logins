@@ -1,7 +1,38 @@
 <div class="add-users">
     <!-- Header -->
     <div class="add-users-header">
-        <p class="user-select-none">Add New User</p>
+        <div class="add-users-header-left">
+            <svg-icon
+                [ngClass]="{ 'logo-active': addUserForm.valid }"
+                src="../../../../../assets/svg/logo.svg"
+                [svgStyle]="{
+                    'width.px': 50,
+                    'height.px':50,
+                }"
+            ></svg-icon>
+        </div>
+
+        <div class="add-users-header-right">
+            <button
+                type="button"
+                class="close-btn"
+                matTooltip="Close"
+                matTooltipPosition="above"
+                matTooltipClass="tooltip"
+                (click)="handleCloseModalClick()"
+            >
+                <svg-icon
+                    class="close-icon"
+                    src="../../../../../assets/svg/x.svg"
+                    [svgStyle]="{
+                        'width.px': 15,
+                        'height.px': 15
+                    }"
+                ></svg-icon>
+            </button>
+
+            <p class="user-select-none">Add User</p>
+        </div>
     </div>
 
     <!-- Form -->

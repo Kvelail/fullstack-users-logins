@@ -10,5 +10,5 @@ export enum ConstantString {
 
     DATE_FORMAT = 'MM/dd/yyyy',
 
-    NUMBER_OF_PAGINATION_ARRAY = 'numberOfPaginationArray',
+    NUMBER_OF_PAGINATION_ARRAY = 'paginationNumbersArray',
 }

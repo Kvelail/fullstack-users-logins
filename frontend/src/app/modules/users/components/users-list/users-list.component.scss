@@ -6,11 +6,99 @@
         border-radius: 0.5rem;
     }
 
+    &-top {
+        display: grid;
+        grid-template-columns: 4fr 1fr;
+
+        .btn-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            background: $color-white;
+            margin-bottom: 1rem;
+            margin-left: 1rem;
+            border-radius: 0.5rem;
+            padding-right: 2rem;
+
+            .add-btn {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                outline: none;
+                border: none;
+                background: none;
+                cursor: pointer;
+                line-height: 0.5rem;
+
+                &:hover {
+                    .plus-icon {
+                        transform: scale(1.2);
+
+                        path {
+                            fill: $color-turquoise;
+                        }
+                    }
+
+                    p {
+                        color: $color-turquoise;
+                    }
+                }
+
+                p {
+                    margin-right: 1rem;
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    letter-spacing: 0.1rem;
+                    color: $color-black;
+                    transition: color 0.2s ease-in-out;
+                }
+
+                .plus-icon {
+                    transition: transform 0.2s ease-in-out,
+                        fill 0.2s ease-in-out;
+
+                    path {
+                        fill: $color-black;
+                    }
+                }
+            }
+        }
+    }
+
     .username-cell {
         text-transform: capitalize;
     }
 
     .mat-mdc-row:nth-child(odd) {
         background-color: $color-turquoise-opacity-2;
+    }
+
+    .username-cell,
+    .email-cell,
+    .created-cell {
+        text-align: center !important;
+        padding-right: 4rem;
+        text-transform: capitalize;
+    }
+}
+
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 830px) {
+    .users-list-top {
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            padding-right: 0;
+
+            .add-btn {
+                p {
+                    display: none;
+                }
+            }
+        }
     }
 }

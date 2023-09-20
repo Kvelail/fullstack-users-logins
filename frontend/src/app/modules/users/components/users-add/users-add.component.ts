@@ -9,6 +9,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Subject, takeUntil } from 'rxjs';
 
+// angular material ui
+import { MatDialogRef } from '@angular/material/dialog';
+
 // dates
 import { format } from 'date-fns';
 
@@ -25,7 +28,7 @@ import { ConstantString } from '../../state/enums/constant-string.enum';
 import { UsersService } from '../../state/services/users-service/users.service';
 
 // helper
-import { inputOnBlur } from '../../state/utils/input.helper';
+import { InputHelper } from '../../state/utils/input.helper';
 
 @Component({
     selector: 'app-users-add',
@@ -43,7 +46,8 @@ export class UsersAddComponent implements OnInit, OnDestroy {
 
     constructor(
         private formBuilder: FormBuilder,
-        private usersService: UsersService
+        private usersService: UsersService,
+        private addUserDialogRef: MatDialogRef<UsersAddComponent>
     ) {}
 
     ngOnInit(): void {
@@ -112,7 +116,12 @@ export class UsersAddComponent implements OnInit, OnDestroy {
 
     // handle input on blur
     public handleInputOnBlur(inputType: string): void {
-        inputOnBlur(this.addUserForm.controls[inputType]);
+        InputHelper.inputOnBlur(this.addUserForm.controls[inputType]);
+    }
+
+    // handle close modal click
+    public handleCloseModalClick(): void {
+        this.addUserDialogRef.close();
     }
 
     ngOnDestroy(): void {

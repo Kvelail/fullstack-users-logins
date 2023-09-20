@@ -1,6 +1,27 @@
 <div class="users-list">
     <!-- Search filter -->
-    <app-users-filter></app-users-filter>
+    <div class="users-list-top">
+        <app-users-filter></app-users-filter>
+
+        <div class="btn-container">
+            <button
+                type="button"
+                class="add-btn"
+                (click)="handleAddUserClick()"
+            >
+                <p class="user-select-none">Add User</p>
+
+                <svg-icon
+                    class="plus-icon"
+                    src="../../../../../assets/svg/plus.svg"
+                    [svgStyle]="{
+                        'width.px': 30,
+                        'height.px': 30
+                    }"
+                ></svg-icon>
+            </button>
+        </div>
+    </div>
 
     <!-- Table -->
     <table
@@ -38,7 +59,11 @@
             >
                 Email
             </th>
-            <td class="user-select-black" mat-cell *matCellDef="let element">
+            <td
+                class="email-cell user-select-black"
+                mat-cell
+                *matCellDef="let element"
+            >
                 {{ element.email }}
             </td>
         </ng-container>
@@ -53,7 +78,11 @@
             >
                 Created At
             </th>
-            <td class="user-select-black" mat-cell *matCellDef="let element">
+            <td
+                class="created-cell user-select-black"
+                mat-cell
+                *matCellDef="let element"
+            >
                 {{ element.registeredDate }}
             </td>
         </ng-container>
@@ -66,7 +95,7 @@
     <!-- Display pagination if more then 10 users in list -->
     <app-users-pagination
         *ngIf="usersCount > 10"
-        [numberOfPaginationArray]="numberOfPaginationArray"
+        [paginationNumbersArray]="paginationNumbersArray"
         (paginationNumberEmitter)="handlePaginationNumberEmit($event)"
     ></app-users-pagination>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-// static
-import { NAVBAR_MENU_ITEMS } from '../../state/utils/static';
+// constants
+import { Constants } from '../../state/utils/constants';
 
 // models
 import { NavbarLink } from '../../state/models/navbar-link.model';
@@ -30,7 +30,7 @@ export class UsersNavbarComponent implements OnInit {
 
     // get navbar items
     private getNavbarMenuItems(): void {
-        this.navbarMenuItems = NAVBAR_MENU_ITEMS;
+        this.navbarMenuItems = Constants.NAVBAR_MENU_ITEMS;
     }
 
     // handle logout
