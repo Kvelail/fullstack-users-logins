@@ -1,7 +1,23 @@
 <div class="app-container">
-    <app-users-navbar *ngIf="router.url !== '/'"></app-users-navbar>
+    <div class="navbar">
+        <app-users-navbar *ngIf="router.url !== '/'"></app-users-navbar>
+    </div>
 
-    <main [@routeAnimations]="prepareRoute(outlet)">
+    <main [@routeAnimations]="prepareRoute(outlet)" class="content">
         <router-outlet #outlet="outlet"></router-outlet>
     </main>
+
+    <!-- Animation -->
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
 </div>

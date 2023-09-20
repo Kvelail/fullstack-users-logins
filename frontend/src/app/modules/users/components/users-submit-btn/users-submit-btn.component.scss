@@ -16,6 +16,7 @@
     &:disabled,
     &[disabled] {
         background-color: $color-grey-2 !important;
+        color: $color-turquoise !important;
     }
 
     &.add-button {

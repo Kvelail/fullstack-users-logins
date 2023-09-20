@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
 // animations
@@ -11,7 +11,6 @@ import { ConstantString } from './modules/users/state/enums/constant-string.enum
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    encapsulation: ViewEncapsulation.None,
     animations: [faderAnimation],
 })
 export class AppComponent {
